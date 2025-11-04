@@ -129,7 +129,8 @@ const meta = {
       name: '',
       description: '',
       example: '',
-      required: false
+      required: false,
+      options: []
     }
   ]
 };
