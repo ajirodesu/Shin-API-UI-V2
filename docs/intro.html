@@ -85,6 +85,20 @@
         .transition-all {
             transition: all 0.3s ease;
         }
+        .slide-down {
+            animation: slideDown 0.15s ease-out;
+        }
+        .slide-up {
+            animation: slideUp 0.15s ease-out;
+        }
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes slideUp {
+            from { opacity: 1; transform: translateY(0); }
+            to { opacity: 0; transform: translateY(-10px); }
+        }
     </style>
 </head>
 <body class="bg-black text-gray-200 antialiased font-mono min-h-screen">
@@ -95,68 +109,81 @@
     </div>
 
     <header class="sticky top-0 z-50 bg-black border-b border-gray-700 py-4 shadow-md">
-        <div class="max-w-4xl mx-auto flex justify-between items-center px-4">
-            <h1 id="apiTitle" class="text-2xl font-bold bg-gradient-to-r from-purple-400 to-purple-600 text-transparent bg-clip-text"></h1>
-            <a href="/dashboard" class="bg-gradient-to-r from-purple-600 to-purple-400 text-white px-6 py-2 rounded-lg font-semibold text-sm transition-all hover:opacity-90 hover:shadow-lg">Enter Dashboard</a>
+        <div class="max-w-2xl mx-auto flex justify-center items-center px-4">
+            <h1 id="headerTitle" class="text-lg font-bold text-gray-100"></h1>
         </div>
     </header>
 
-    <main class="max-w-4xl mx-auto px-8 py-10">
-        <section id="introduction" class="mb-12 text-center">
+    <main class="max-w-2xl mx-auto px-6 py-8">
+        <section id="introduction" class="mb-12 text-center flex flex-col items-center">
             <img id="headerImage" src="" alt="Header" class="mx-auto rounded-xl mb-6 w-[80%] md:w-[40%] lg:w-[40%]">
             <h2 class="text-3xl font-bold mb-4 bg-gradient-to-r from-purple-400 to-purple-600 text-transparent bg-clip-text">Welcome to <span id="apiName"></span></h2>
-            <p id="apiDescription" class="text-base text-gray-400 mb-6"></p>
-            <p class="text-base text-gray-400 mb-4">
-                Our platform offers a simple and easy-to-use API documentation system, allowing you to explore and test endpoints in real-time.
-            </p>
-            <p class="text-base text-gray-400">
-                With <span id="totalEndpoints"></span> endpoints across <span id="totalCategories"></span> categories, backed by a reliable and always-online service.
-            </p>
+            <div class="bg-black border border-gray-700 rounded-lg p-4 shadow-md transition-all hover:shadow-xl w-full">
+                <p id="apiDescription" class="text-base text-gray-400 mb-6"></p>
+                <p class="text-base text-gray-400 mb-4">
+                    Our platform offers a simple and easy-to-use API documentation system, allowing you to explore and test endpoints in real-time.
+                </p>
+                <p class="text-base text-gray-400">
+                    With <span id="totalEndpoints"></span> endpoints across <span id="totalCategories"></span> categories, backed by a reliable and always-online service.
+                </p>
+            </div>
+            <div class="flex space-x-4 mt-6">
+                <a href="/docs" class="bg-gradient-to-r from-purple-600 to-purple-400 text-white px-6 py-2 rounded-lg font-semibold text-sm transition-all hover:opacity-90 hover:shadow-lg">Enter Dashboard</a>
+                <a href="#getting-started" class="bg-black border border-gray-700 text-gray-100 px-6 py-2 rounded-lg font-semibold text-sm transition-all hover:border-purple-500 hover:shadow-lg">Learn More</a>
+            </div>
         </section>
 
         <section id="getting-started" class="mb-12">
             <h2 class="text-3xl font-bold mb-6 bg-gradient-to-r from-purple-400 to-purple-600 text-transparent bg-clip-text">Getting Started</h2>
-            <ol class="space-y-6">
-                <li class="flex">
-                    <div class="flex-shrink-0 w-8 h-8 bg-gradient-to-r from-purple-600 to-purple-400 text-white font-bold text-center leading-8 mr-4 rounded-lg transition-all hover:opacity-90">1</div>
-                    <div>
-                        <h3 class="font-bold text-gray-100">Choose Your Category</h3>
-                        <p class="text-gray-400 text-base">Browse through available API categories on the sidebar and select what you need.</p>
-                    </div>
-                </li>
-                <li class="flex">
-                    <div class="flex-shrink-0 w-8 h-8 bg-gradient-to-r from-purple-600 to-purple-400 text-white font-bold text-center leading-8 mr-4 rounded-lg transition-all hover:opacity-90">2</div>
-                    <div>
-                        <h3 class="font-bold text-gray-100">Read the Docs</h3>
-                        <p class="text-gray-400 text-base">Check endpoint parameters, response format, and example usage.</p>
-                    </div>
-                </li>
-                <li class="flex">
-                    <div class="flex-shrink-0 w-8 h-8 bg-gradient-to-r from-purple-600 to-purple-400 text-white font-bold text-center leading-8 mr-4 rounded-lg transition-all hover:opacity-90">3</div>
-                    <div>
-                        <h3 class="font-bold text-gray-100">Make Your Request</h3>
-                        <p class="text-gray-400 text-base">Send HTTP requests and integrate the JSON response into your app.</p>
-                    </div>
-                </li>
-            </ol>
+            <div class="bg-black border border-gray-700 rounded-lg p-4 shadow-md transition-all hover:shadow-xl">
+                <ol class="space-y-6">
+                    <li class="flex">
+                        <div class="flex-shrink-0 w-8 h-8 bg-gradient-to-r from-purple-600 to-purple-400 text-white font-bold text-center leading-8 mr-4 rounded-lg transition-all hover:opacity-90">1</div>
+                        <div>
+                            <h3 class="font-bold text-gray-100">Choose Your Category</h3>
+                            <p class="text-gray-400 text-base">Browse through available API categories on the sidebar and select what you need.</p>
+                        </div>
+                    </li>
+                    <li class="flex">
+                        <div class="flex-shrink-0 w-8 h-8 bg-gradient-to-r from-purple-600 to-purple-400 text-white font-bold text-center leading-8 mr-4 rounded-lg transition-all hover:opacity-90">2</div>
+                        <div>
+                            <h3 class="font-bold text-gray-100">Read the Docs</h3>
+                            <p class="text-gray-400 text-base">Check endpoint parameters, response format, and example usage.</p>
+                        </div>
+                    </li>
+                    <li class="flex">
+                        <div class="flex-shrink-0 w-8 h-8 bg-gradient-to-r from-purple-600 to-purple-400 text-white font-bold text-center leading-8 mr-4 rounded-lg transition-all hover:opacity-90">3</div>
+                        <div>
+                            <h3 class="font-bold text-gray-100">Make Your Request</h3>
+                            <p class="text-gray-400 text-base">Send HTTP requests and integrate the JSON response into your app.</p>
+                        </div>
+                    </li>
+                </ol>
+            </div>
         </section>
 
         <section id="terms-of-service" class="mb-12">
             <h2 class="text-3xl font-bold mb-6 bg-gradient-to-r from-purple-400 to-purple-600 text-transparent bg-clip-text">Terms of Service</h2>
-            <p class="text-base text-gray-400 mb-4">
-                By using <span id="apiNameTerms"></span>, you agree to the following terms:
-            </p>
-            <ul class="list-disc list-inside space-y-2 text-base text-gray-400">
-                <li>Use the APIs responsibly and in accordance with all applicable laws.</li>
-                <li>Do not abuse the service by exceeding reasonable rate limits.</li>
-                <li>We reserve the right to modify or discontinue the service at any time.</li>
-                <li>All content and data provided through the APIs are for informational purposes only.</li>
-                <li>We are not liable for any damages arising from the use of our APIs.</li>
-            </ul>
-            <p class="text-base text-gray-400 mt-4">
-                For full terms, please contact us via our Telegram channel.
-            </p>
+            <div class="bg-black border border-gray-700 rounded-lg p-4 shadow-md transition-all hover:shadow-xl">
+                <p class="text-base text-gray-400 mb-4">
+                    By using <span id="apiNameTerms"></span>, you agree to the following terms:
+                </p>
+                <ul class="list-disc list-inside space-y-2 text-base text-gray-400">
+                    <li>Use the APIs responsibly and in accordance with all applicable laws.</li>
+                    <li>Do not abuse the service by exceeding reasonable rate limits.</li>
+                    <li>We reserve the right to modify or discontinue the service at any time.</li>
+                    <li>All content and data provided through the APIs are for informational purposes only.</li>
+                    <li>We are not liable for any damages arising from the use of our APIs.</li>
+                </ul>
+                <p class="text-base text-gray-400 mt-4">
+                    For full terms, please contact us via our Telegram channel.
+                </p>
+            </div>
         </section>
+
+        <div class="text-center mt-8 mb-12">
+            <button onclick="window.scrollTo({top: 0, behavior: 'smooth'})" class="bg-gradient-to-r from-purple-600 to-purple-400 text-white px-6 py-2 rounded-lg font-semibold text-sm transition-all hover:opacity-90 hover:shadow-lg">Back to Top</button>
+        </div>
     </main>
 
     <footer class="bg-black border-t border-gray-700 py-6">
@@ -172,24 +199,22 @@
             try {
                 const setRes = await fetch('/set');
                 const setData = await setRes.json();
-
-                document.title = setData.name;
                 document.querySelector('meta[name="description"]').content = setData.description;
-                document.querySelector('meta[property="og:title"]').content = setData.name;
                 document.querySelector('meta[property="og:description"]').content = setData.description;
                 document.querySelector('link[rel="icon"]').href = setData.icon;
-                document.getElementById('apiTitle').textContent = setData.name;
+                document.getElementById('footerCopyright').textContent = `© ${setData.name}. | All Rights Reserved.`;
+
+                document.title = setData.name;
+                document.querySelector('meta[property="og:title"]').content = setData.name;
+                document.getElementById('headerTitle').textContent = setData.name;
                 document.getElementById('apiDescription').textContent = setData.description;
                 document.getElementById('headerImage').src = setData.header.imageSrc[0];
-                document.getElementById('footerCopyright').textContent = `© ${setData.name} | All Rights Reserved.`;
                 document.getElementById('apiName').textContent = setData.name;
                 document.getElementById('apiNameTerms').textContent = setData.name;
 
-                const endpointsRes = await fetch('/endpoints');
-                const endpointsData = await endpointsRes.json();
-                const endpoints = endpointsData.endpoints;
-
-                document.getElementById('totalEndpoints').textContent = endpointsData.count;
+                const res = await fetch('/endpoints');
+                const { endpoints, count } = await res.json();
+                document.getElementById('totalEndpoints').textContent = count;
                 document.getElementById('totalCategories').textContent = endpoints.length;
             } finally {
                 loader.classList.add('hidden');
