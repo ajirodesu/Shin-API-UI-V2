@@ -14,7 +14,7 @@ module.exports = {
     },
   },
   icon: "/docs/image/icon.png",
-  author: "ShinDesu",
+  operator: "ShinDesu",
   telegram: "https://t.me/+AQO22J2q6KBlNWM1",
   notification: [
     {

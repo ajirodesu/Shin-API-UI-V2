@@ -42,7 +42,7 @@ const chalk = require('chalk');
 
       if (data && typeof data === 'object') {
         const responseData = {
-          operator: set.author || '',
+          operator: set.operator || '',
           timestamp: timestamp,
           responseTime: responseTime,
           ...data,
