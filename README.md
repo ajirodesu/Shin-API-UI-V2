@@ -1,4 +1,4 @@
-# Shin API UI V2
+# Chaldea API
 
 > Interactive REST API documentation + sandbox UI for file-based API endpoints.
 > **Live demo:** [https://shin-apis.onrender.com/](https://shin-apis.onrender.com/)
@@ -23,7 +23,7 @@
 
 # About
 
-Shin API UI is a lightweight UI and tiny Node server for documenting and exposing REST endpoints created as individual `.js` files under an `api/` folder. Each endpoint exports a `meta` object (used by the UI) and an `onStart` function that handles the incoming request.
+Chaldea API is a lightweight UI and tiny Node server for documenting and exposing REST endpoints created as individual `.js` files under an `api/` folder. Each endpoint exports a `meta` object (used by the UI) and an `onStart` function that handles the incoming request.
 
 ---
 
@@ -44,8 +44,8 @@ Shin API UI is a lightweight UI and tiny Node server for documenting and exposin
 
 ```bash
 git clone https://github.com/ajirodesu/Shin-API-UI-V2.git
-cd Shin-API-UI-V2 
-````
+cd Chaldea-API 
+```
 
 2. Install dependencies:
 
@@ -75,7 +75,7 @@ Example `settings.js`:
 
 ```js
 module.exports = {
-  name: 'Shin APIs',
+  name: 'Chaldea API',
   description: 'This interactive interface allows you to explore and test our comprehensive collection of API endpoints in real-time.',
   icon: '/docs/image/icon.png',
   author: 'ShinDesu',
@@ -100,7 +100,7 @@ module.exports = {
 
 # Endpoint file format / template
 
-Shin expects each endpoint file in the `api/` folder to export at least two things:
+Chaldea expects each endpoint file in the `api/` folder to export at least two things:
 
 * `meta` — metadata used by the UI and by the server to expose the endpoint.
 * `onStart` — an async function that receives the Node/Express `req` and `res` objects and handles the request.
@@ -273,7 +273,7 @@ curl "https://shin-apis.onrender.com/example/example?text=Hello"
 
 # Contributing & credits
 
-This project is based on Rynn’s UI design — special thanks to [https://github.com/rynn-k](https://github.com/rynn-k) for the original project. The repository `Shin-API-UI-V2` is an adaptation and extension by `ajirodesu`.
+This project is based on Rynn’s UI design — special thanks to [https://github.com/rynn-k](https://github.com/rynn-k) for the original project. The repository `Chaldea-API` is an adaptation and extension by `ajirodesu`.
 
 Contributing guidelines:
 
