@@ -1,5 +1,5 @@
 {
-  "name": "Shin-API-UI-V2",
+  "name": "Chaldea-API",
   "version": "1.0.0",
   "description": "Open-source user interface for GET and POST endpoints backend.",
   "main": "index.js",
