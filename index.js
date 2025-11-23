@@ -1,8 +1,8 @@
-// Modified app.js
+// index/app.js
 const express = require('express');
 const fs = require('fs');
 const path = require('path');
-const set = require('./settings');
+const set = require('./setup/settings');
 const chalk = require('chalk');
 
 (async () => {
@@ -152,7 +152,66 @@ const chalk = require('chalk');
   });
 
   app.get('/set', (req, res) => {
-    res.json({ status: true, ...set });
+    const notifPath = path.join(__dirname, 'setup', 'notif.json');
+    let notifications = [];
+    try {
+      notifications = JSON.parse(fs.readFileSync(notifPath, 'utf8'));
+    } catch (err) {
+      logger.error(`Failed to load notifications: ${err.message}`);
+    }
+    res.json({ status: true, ...set, notification: notifications });
+  });
+
+  app.get('/notifications', (req, res) => {
+    const notifPath = path.join(__dirname, 'setup', 'notif.json');
+    let notifications = [];
+    try {
+      notifications = JSON.parse(fs.readFileSync(notifPath, 'utf8'));
+    } catch (err) {
+      logger.error(`Failed to load notifications: ${err.message}`);
+      notifications = [];
+    }
+    res.json({ notifications });
+  });
+
+  app.post('/api/notification', async (req, res) => {
+    if (req.headers.authorization !== `${set.key}`) {
+      return res.status(401).json({ error: 'Unauthorized' });
+    }
+
+    const { message, clear, firstName } = req.body;
+
+    const notifPath = path.join(__dirname, 'setup', 'notif.json');
+    let notifications = [];
+    if (fs.existsSync(notifPath)) {
+      try {
+        notifications = JSON.parse(fs.readFileSync(notifPath, 'utf8'));
+      } catch (err) {
+        // Invalid JSON, start fresh
+      }
+    }
+
+    if (clear) {
+      notifications = [];
+      fs.writeFileSync(notifPath, JSON.stringify(notifications, null, 2));
+      return res.json({ success: true, cleared: true });
+    }
+
+    if (!message) {
+      return res.status(400).json({ error: 'Missing message' });
+    }
+
+    const newNotif = {
+      id: Date.now(),
+      title: `From Developer ${firstName || ''}`.trim(),
+      message: message.trim(),
+      createdAt: Date.now()
+    };
+
+    notifications.push(newNotif);
+    fs.writeFileSync(notifPath, JSON.stringify(notifications, null, 2));
+
+    res.json({ success: true });
   });
 
   app.use((req, res) => {

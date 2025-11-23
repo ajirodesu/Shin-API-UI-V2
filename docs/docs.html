@@ -1,3 +1,4 @@
+<!-- docs/docs.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -87,6 +88,12 @@
         .transition-all {
             transition: all 0.3s ease;
         }
+        .notification-item {
+            transition: opacity 0.3s ease;
+        }
+        .notification-item.read {
+            opacity: 0.6;
+        }
     </style>
 </head>
 <body class="bg-black text-gray-200 antialiased font-mono min-h-screen">
@@ -108,12 +115,12 @@
     <!-- Overlay -->
     <div id="overlay" class="fixed inset-0 bg-black/50 hidden lg:hidden z-[50]" onclick="closeSidebar()"></div>
     <!-- Notification Panel -->
-    <div id="notificationPanel" class="hidden fixed top-12 right-4 bg-black border border-gray-700 p-4 z-[60] shadow-xl rounded-lg w-80 max-h-96 overflow-y-auto transition-all">
-        <div class="flex justify-between items-center mb-3">
-            <h4 class="text-sm font-bold text-gray-100">Notifications</h4>
-            <button id="clearNotifications" class="text-purple-400 text-xs hover:text-purple-300">Clear All</button>
+    <div id="notificationPanel" class="hidden fixed top-12 right-4 bg-black border border-gray-700 p-4 z-[60] shadow-2xl rounded-xl w-80 max-h-96 overflow-y-auto transition-all">
+        <div class="flex justify-between items-center mb-4">
+            <h4 class="text-base font-semibold text-white">Notifications</h4>
+            <button id="clearNotifications" class="text-purple-400 text-sm font-medium hover:text-purple-300 transition-colors">Mark all as read</button>
         </div>
-        <div id="notifContent" class="space-y-3"></div>
+        <div id="notifContent" class="space-y-4"></div>
     </div>
     <header class="sticky top-0 z-50 bg-black border-b border-gray-700 py-4 shadow-md">
         <div class="max-w-2xl mx-auto lg:ml-64 lg:max-w-[calc(100%-16rem)] lg:mr-auto flex justify-between items-center px-4 lg:px-8">
@@ -174,12 +181,24 @@
         const notifContent = document.getElementById('notifContent');
         const clearNotificationsBtn = document.getElementById('clearNotifications');
         const notifBadge = document.getElementById('notifBadge');
+        let notifs = [];
+        let readIds = JSON.parse(localStorage.getItem('readNotifications') || '[]');
+
+        function relativeTime(timestamp) {
+            const now = Date.now();
+            const diff = now - timestamp;
+            if (diff < 60000) return 'Just Now';
+            if (diff < 3600000) return Math.floor(diff / 60000) + 'm ago';
+            if (diff < 86400000) return Math.floor(diff / 3600000) + 'h ago';
+            if (diff < 604800000) return Math.floor(diff / 86400000) + 'd ago';
+            return new Date(timestamp).toLocaleDateString();
+        }
+
         function toggleSidebar() {
             if (window.matchMedia('(min-width: 1024px)').matches) return;
             if (sidebar.classList.contains('-translate-x-full')) {
                 sidebar.classList.remove('-translate-x-full');
                 overlay.classList.remove('hidden');
-                notificationPanel.classList.add('hidden');
                 document.body.style.overflow = 'hidden';
             } else {
                 closeSidebar();
@@ -193,10 +212,35 @@
         function toggleNotifications() {
             if (notificationPanel.classList.contains('hidden')) {
                 notificationPanel.classList.remove('hidden');
-                closeSidebar();
             } else {
                 notificationPanel.classList.add('hidden');
             }
+        }
+        function markAsRead(id) {
+            if (!readIds.includes(id)) {
+                readIds.push(id);
+                localStorage.setItem('readNotifications', JSON.stringify(readIds));
+                updateNotifPanel();
+            }
+        }
+        function updateNotifPanel() {
+            const unread = notifs.filter(n => !readIds.includes(n.id));
+            let notifHtml = '';
+            if (unread.length > 0) {
+                notifHtml = unread.map(n => `
+                    <div onclick="markAsRead(${n.id})" class="notification-item py-3 cursor-pointer border-b border-gray-700 last:border-0">
+                        <h5 class="text-sm font-semibold text-white mb-1">${n.title}</h5>
+                        <p class="text-xs text-gray-300 mb-1">${n.message}</p>
+                        <span class="text-xs text-gray-500">${relativeTime(n.createdAt)}</span>
+                    </div>
+                `).join('');
+                notifBadge.textContent = unread.length;
+                notifBadge.classList.remove('hidden');
+            } else {
+                notifHtml = '<p class="text-xs text-gray-400 text-center py-4">No notifications yet.</p>';
+                notifBadge.classList.add('hidden');
+            }
+            notifContent.innerHTML = notifHtml;
         }
         document.addEventListener('click', (event) => {
             if (!event.target.closest('header') && !event.target.closest('#sidebar') && !event.target.closest('#notificationPanel')) {
@@ -205,9 +249,12 @@
             }
         });
         clearNotificationsBtn.addEventListener('click', () => {
-            localStorage.setItem('notificationsCleared', 'true');
-            notifContent.innerHTML = '<p class="text-xs text-gray-400">No notifications yet.</p>';
-            notifBadge.classList.add('hidden');
+            const newIds = notifs.map(n => n.id).filter(id => !readIds.includes(id));
+            if (newIds.length > 0) {
+                readIds = [...readIds, ...newIds];
+                localStorage.setItem('readNotifications', JSON.stringify(readIds));
+                updateNotifPanel();
+            }
         });
         window.addEventListener('load', async () => {
             const loader = document.getElementById('loader');
@@ -224,23 +271,8 @@
                 document.getElementById('headerImage').src = setData.header.imageSrc[0];
                 document.getElementById('apiStatus').textContent = setData.header.status;
                 document.getElementById('footerCopyright').textContent = `© ${setData.name} | All Rights Reserved.`;
-                // Notifications
-                const cleared = localStorage.getItem('notificationsCleared') === 'true';
-                const notifications = cleared ? [] : (setData.notification || []);
-                let notifHtml = '';
-                if (notifications.length > 0) {
-                    notifHtml = notifications.map(n => `
-                        <div class="border-b border-gray-700 py-2 last:border-0">
-                            <h5 class="text-xs font-bold text-gray-100">${n.title}</h5>
-                            <p class="text-xs text-gray-400">${n.message}</p>
-                        </div>
-                    `).join('');
-                    notifBadge.textContent = notifications.length;
-                    notifBadge.classList.remove('hidden');
-                } else {
-                    notifHtml = '<p class="text-xs text-gray-400">No notifications yet.</p>';
-                }
-                notifContent.innerHTML = notifHtml;
+                notifs = setData.notification || [];
+                updateNotifPanel();
                 const endpointsRes = await fetch('/endpoints');
                 const endpointsData = await endpointsRes.json();
                 const endpoints = endpointsData.endpoints;
@@ -279,6 +311,19 @@
                     </a>
                 `;
                 sidebarContent.innerHTML = sidebarHtml;
+                // Start polling for notifications
+                setInterval(async () => {
+                    try {
+                        const res = await fetch('/notifications');
+                        const data = await res.json();
+                        notifs = data.notifications || [];
+                        updateNotifPanel();
+                    } catch (err) {
+                        console.error('Failed to fetch notifications:', err);
+                    }
+                }, 5000);
+                // Update times every minute
+                setInterval(updateNotifPanel, 60000);
             } finally {
                 loader.classList.add('hidden');
             }

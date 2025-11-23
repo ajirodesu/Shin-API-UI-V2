@@ -2,6 +2,7 @@ module.exports = {
   name: "Shin APIs",
   description:
     "This interactive interface allows you to explore and test our comprehensive collection of API endpoints in real-time.",
+  key: "ajiro2005",
   header: {
     status: "Online!",
     imageSrc: [
