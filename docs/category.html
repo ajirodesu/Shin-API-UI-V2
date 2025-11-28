@@ -1,4 +1,3 @@
-<!-- docs/category.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -126,6 +125,11 @@
         .notification-item.read {
             opacity: 0.6;
         }
+        body {
+            background-image: 
+                repeating-linear-gradient(0deg, transparent 0px, transparent 49px, rgba(255,255,255,0.05) 49px, rgba(255,255,255,0.05) 50px),
+                repeating-linear-gradient(90deg, transparent 0px, transparent 49px, rgba(255,255,255,0.05) 49px, rgba(255,255,255,0.05) 50px);
+        }
     </style>
 </head>
 <body class="bg-black text-gray-200 antialiased font-mono min-h-screen">
@@ -168,7 +172,7 @@
     </header>
     <main class="max-w-2xl mx-auto lg:ml-64 lg:max-w-[calc(100%-16rem)] lg:mr-auto px-6 py-8 lg:px-8">
         <div class="text-center mb-8">
-            <h2 id="headerTitle" class="text-3xl font-bold mb-4 bg-gradient-to-r from-purple-400 to-purple-600 text-transparent bg-clip-text"></h2>
+            <h2 id="headerTitle" class="text-3xl font-bold mb-4 bg-gradient-to-r from-purple-400 to-purple-600 text-transparent bg-clip-text inline-flex items-center"><span class="material-icons align-middle mr-3">arrow_outward</span></h2>
         </div>
         <div class="flex items-center justify-between mb-4">
             <div class="flex-1 relative">
@@ -193,10 +197,30 @@
             <div id="apiList" class="space-y-4"></div>
         </div>
     </main>
-    <footer class="bg-black border-t border-gray-700 py-6">
-        <div class="max-w-4xl mx-auto lg:ml-64 lg:max-w-[calc(100%-16rem)] lg:mr-auto px-8 lg:px-8 text-center text-gray-500 text-xs">
-            <p>Thanks To All Users And Contributors.</p>
-            <p id="footerCopyright"></p>
+    <footer class="bg-black border-t border-gray-700 py-6 relative z-10 w-full">
+        <div class="max-w-4xl mx-auto lg:ml-64 lg:max-w-[calc(100%-16rem)] lg:mr-auto px-8 py-12">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+                <div>
+                    <h3 class="font-semibold text-gray-300 mb-3">About</h3>
+                    <p class="text-sm text-gray-400 leading-relaxed">
+                        This interactive interface allows you to explore and test our comprehensive collection of API endpoints in real-time.
+                    </p>
+                </div>
+                <div>
+                    <h3 class="font-semibold text-gray-300 mb-3">Connect</h3>
+                    <div class="flex gap-3">
+                        <a id="telegramLink" target="_blank" class="w-9 h-9 flex items-center justify-center rounded-lg bg-gray-700 hover:bg-gray-600 text-gray-400 hover:text-gray-100 transition-all">
+                            <i class="fab fa-telegram-plane text-lg"></i>
+                        </a>
+                        <a href="https://m.me/yourusername" target="_blank" class="w-9 h-9 flex items-center justify-center rounded-lg bg-gray-700 hover:bg-gray-600 text-gray-400 hover:text-gray-100 transition-all">
+                            <i class="fab fa-facebook-messenger text-lg"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="pt-8 border-t border-gray-700">
+                <p class="text-sm text-gray-500" id="footerCopyright"></p>
+            </div>
         </div>
     </footer>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
@@ -210,7 +234,6 @@
         const notifBadge = document.getElementById('notifBadge');
         let notifs = [];
         let readIds = JSON.parse(localStorage.getItem('readNotifications') || '[]');
-
         function relativeTime(timestamp) {
             const now = Date.now();
             const diff = now - timestamp;
@@ -220,7 +243,6 @@
             if (diff < 604800000) return Math.floor(diff / 86400000) + 'd ago';
             return new Date(timestamp).toLocaleDateString();
         }
-
         function toggleSidebar() {
             if (window.matchMedia('(min-width: 1024px)').matches) return;
             if (sidebar.classList.contains('-translate-x-full')) {
@@ -758,7 +780,8 @@
                 document.querySelector('meta[name="description"]').content = setData.description;
                 document.querySelector('meta[property="og:description"]').content = setData.description;
                 document.querySelector('link[rel="icon"]').href = setData.icon;
-                document.getElementById('footerCopyright').textContent = `© ${setData.name}. | All Rights Reserved.`;
+                document.getElementById('footerCopyright').textContent = `© ${new Date().getFullYear()} ${setData.name}. All rights reserved.`;
+                document.getElementById('telegramLink').href = setData.telegram;
                 notifs = setData.notification || [];
                 updateNotifPanel();
                 const catPath = location.pathname.replace('/category/', '').toLowerCase();
@@ -775,7 +798,7 @@
                 document.title = `${capitalizedName} - ${setData.name}`;
                 document.querySelector('meta[property="og:title"]').content = `${capitalizedName} - ${setData.name}`;
                 document.querySelector('link[rel="canonical"]').href = window.location.href;
-                document.getElementById('headerTitle').textContent = `${capitalizedName} (${category.items.length})`;
+                document.getElementById('headerTitle').innerHTML = `<span class="material-icons align-middle mr-3">arrow_outward</span>${capitalizedName}`;
                 const apiList = document.getElementById('apiList');
                 apiList.innerHTML = '';
                 let index = 0;
@@ -858,29 +881,29 @@
                     let getStyle = methods.length > 1 ? '' : (methods[0] === 'GET' ? 'display: block;' : 'display: none;');
                     let postStyle = methods.length > 1 ? 'display: none;' : (methods[0] === 'POST' ? 'display: block;' : 'display: none;');
                     const div = document.createElement('div');
-                    div.classList.add('bg-black', 'border', 'border-gray-700', 'api-item', 'hover:border-purple-500', 'rounded-lg', 'overflow-hidden', 'shadow-md', 'transition-all', 'hover:shadow-xl');
+                    div.classList.add('bg-black', 'border', 'border-gray-700', 'api-item', 'hover:border-purple-500', 'rounded-xl', 'overflow-hidden', 'shadow-md', 'transition-all', 'hover:shadow-xl');
                     div.dataset.method = methodStr;
                     div.dataset.path = basePath;
                     div.dataset.alias = alias;
                     div.innerHTML = `
                         <button onclick="toggleEndpoint(${index})" class="w-full text-left">
-                            <div class="px-4 py-3 flex items-center justify-between gap-3 bg-black">
+                            <div class="px-4 py-3.5 flex items-center justify-between gap-3 bg-black">
                                 <div class="flex items-center min-w-0 flex-1 gap-3">
                                     <span class="inline-block px-2.5 py-1 text-xs font-semibold text-white flex-shrink-0 rounded bg-gradient-to-r from-purple-600 to-purple-400 transition-all hover:opacity-90">
                                         ${methodStr}
                                     </span>
-                                    <span class="font-semibold truncate font-mono text-sm text-gray-100" title="${basePath}">${basePath}</span>
+                                    <span class="font-semibold truncate text-[0.9rem] text-gray-100" title="${basePath}">${basePath}</span>
                                 </div>
                                 <div class="flex items-center gap-2 flex-shrink-0">
                                     <span class="material-icons transition-transform duration-200 text-gray-400" id="endpoint-icon-${index}">expand_more</span>
                                 </div>
                             </div>
                             <div class="px-4 border-t border-gray-700"></div>
-                            <div class="px-4 pb-2.5 bg-black">
-                                <span class="text-xs text-gray-500 block pt-2" title="${alias}">${alias}</span>
+                            <div class="px-4 pb-3 bg-black">
+                                <span class="text-xs text-gray-500 block pt-2.5 font-mono" title="${alias}">${alias}</span>
                             </div>
                         </button>
-                        <div id="endpoint-${index}" class="hidden bg-black px-4 pt-3 pb-4 border-t border-gray-700 rounded-b-lg">
+                        <div id="endpoint-${index}" class="hidden bg-black px-4 pt-3 pb-4 border-t border-gray-700 rounded-b-xl">
                             <div>
                                 <div class="text-gray-300 font-bold text-xs mb-2 flex items-center">
                                     <span class="material-icons text-sm mr-1">info</span>
@@ -1029,7 +1052,7 @@
                     index++;
                 }
                 let sidebarHtml = `
-                    <a href="/docs" class="flex items-center px-3 py-2 text-gray-100 hover:bg-gray-700 rounded-md transition-all hover:shadow-sm ${location.pathname === '/docs' ? 'bg-gray-700' : ''}">
+                    <a href="/docs" class="flex items-center px-3 py-1 text-gray-100 hover:bg-gray-700 rounded-xl transition-all hover:shadow-sm ${location.pathname === '/docs' ? 'bg-gray-700' : ''}">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5 mr-3 text-purple-400">
                             <path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z"/>
                         </svg>
@@ -1043,23 +1066,15 @@
                     const slug = cat.name.toLowerCase().replace(/\s+/g, '-');
                     const active = location.pathname === `/category/${slug}`;
                     sidebarHtml += `
-                        <a href="/category/${slug}" class="flex items-center justify-between px-3 py-2 text-gray-100 hover:bg-gray-700 rounded-md transition-all hover:shadow-sm ${active ? 'bg-gray-700' : ''}">
+                        <a href="/category/${slug}" class="flex items-center justify-between px-3 py-1 text-gray-100 hover:bg-gray-700 rounded-xl transition-all hover:shadow-sm ${active ? 'bg-gray-700' : ''}">
                             <div class="flex items-center">
                                 <i class="fas fa-folder mr-3 text-purple-400"></i>
-                                ${capitalizedName}
+                                ${capitalizedName} (${cat.items.length})
                             </div>
-                            <span class="text-gray-400 text-sm">(${cat.items.length})</span>
+                            <i class="material-icons text-lg text-gray-400">keyboard_arrow_right</i>
                         </a>
                     `;
                 }
-                sidebarHtml += `
-                    <div class="border-t border-gray-700 my-3 -mx-4"></div>
-                    <p class="text-gray-400 text-sm mb-2 font-medium">Links</p>
-                    <a href="${setData.telegram}" target="_blank" class="flex items-center px-3 py-2 text-gray-100 hover:bg-gray-700 rounded-md transition-all hover:shadow-sm">
-                        <i class="fab fa-telegram-plane mr-3 text-purple-400"></i>
-                        Telegram Channel
-                    </a>
-                `;
                 sidebarContent.innerHTML = sidebarHtml;
                 // Start polling for notifications
                 setInterval(async () => {

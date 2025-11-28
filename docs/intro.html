@@ -101,6 +101,11 @@
             from { opacity: 1; transform: translateY(0); }
             to { opacity: 0; transform: translateY(-10px); }
         }
+        body {
+            background-image: 
+                repeating-linear-gradient(0deg, transparent 0px, transparent 49px, rgba(255,255,255,0.05) 49px, rgba(255,255,255,0.05) 50px),
+                repeating-linear-gradient(90deg, transparent 0px, transparent 49px, rgba(255,255,255,0.05) 49px, rgba(255,255,255,0.05) 50px);
+        }
     </style>
 </head>
 <body class="bg-black text-gray-200 antialiased font-mono min-h-screen">
@@ -182,10 +187,30 @@
             <button onclick="window.scrollTo({top: 0, behavior: 'smooth'})" class="bg-gradient-to-r from-purple-600 to-purple-400 text-white px-6 py-2 rounded-lg font-semibold text-sm transition-all hover:opacity-90 hover:shadow-lg">Back to Top</button>
         </div>
     </main>
-    <footer class="bg-black border-t border-gray-700 py-6">
-        <div class="max-w-2xl lg:max-w-5xl mx-auto px-8 lg:px-8 text-center text-gray-500 text-xs">
-            <p>Thanks To All Users And Contributors.</p>
-            <p id="footerCopyright"></p>
+    <footer class="bg-black border-t border-gray-700 py-6 relative z-10 w-full">
+        <div class="max-w-2xl lg:max-w-5xl mx-auto px-8 py-12">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+                <div>
+                    <h3 class="font-semibold text-gray-300 mb-3">About</h3>
+                    <p class="text-sm text-gray-400 leading-relaxed">
+                        This interactive interface allows you to explore and test our comprehensive collection of API endpoints in real-time.
+                    </p>
+                </div>
+                <div>
+                    <h3 class="font-semibold text-gray-300 mb-3">Connect</h3>
+                    <div class="flex gap-3">
+                        <a id="telegramLink" target="_blank" class="w-9 h-9 flex items-center justify-center rounded-lg bg-gray-700 hover:bg-gray-600 text-gray-400 hover:text-gray-100 transition-all">
+                            <i class="fab fa-telegram-plane text-lg"></i>
+                        </a>
+                        <a href="https://m.me/yourusername" target="_blank" class="w-9 h-9 flex items-center justify-center rounded-lg bg-gray-700 hover:bg-gray-600 text-gray-400 hover:text-gray-100 transition-all">
+                            <i class="fab fa-facebook-messenger text-lg"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="pt-8 border-t border-gray-700">
+                <p class="text-sm text-gray-500" id="footerCopyright"></p>
+            </div>
         </div>
     </footer>
     <script>
@@ -197,7 +222,8 @@
                 document.querySelector('meta[name="description"]').content = setData.description;
                 document.querySelector('meta[property="og:description"]').content = setData.description;
                 document.querySelector('link[rel="icon"]').href = setData.icon;
-                document.getElementById('footerCopyright').textContent = `© ${setData.name}. | All Rights Reserved.`;
+                document.getElementById('footerCopyright').textContent = `© ${new Date().getFullYear()} ${setData.name}. All rights reserved.`;
+                document.getElementById('telegramLink').href = setData.telegram;
                 document.title = setData.name;
                 document.querySelector('meta[property="og:title"]').content = setData.name;
                 document.getElementById('headerTitle').textContent = setData.name;
