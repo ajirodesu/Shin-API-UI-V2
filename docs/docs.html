@@ -95,8 +95,9 @@
         }
         body {
             background-image: 
-                repeating-linear-gradient(0deg, transparent 0px, transparent 49px, rgba(255,255,255,0.05) 49px, rgba(255,255,255,0.05) 50px),
-                repeating-linear-gradient(90deg, transparent 0px, transparent 49px, rgba(255,255,255,0.05) 49px, rgba(255,255,255,0.05) 50px);
+                repeating-linear-gradient(0deg, transparent 0px, transparent 49px, rgba(255,255,255,0.1) 49px, rgba(255,255,255,0.1) 50px),
+                repeating-linear-gradient(90deg, transparent 0px, transparent 49px, rgba(255,255,255,0.1) 49px, rgba(255,255,255,0.1) 50px);
+            background-size: 100% 100%;
         }
     </style>
 </head>
@@ -119,7 +120,7 @@
     <!-- Overlay -->
     <div id="overlay" class="fixed inset-0 bg-black/50 hidden lg:hidden z-[50]" onclick="closeSidebar()"></div>
     <!-- Notification Panel -->
-    <div id="notificationPanel" class="hidden fixed top-12 right-4 bg-black border border-gray-700 p-4 z-[60] shadow-2xl rounded-xl w-80 max-h-96 overflow-y-auto transition-all">
+    <div id="notificationPanel" class="hidden fixed top-12 right-0 bg-black border border-gray-700 p-4 z-[60] shadow-2xl rounded-xl w-80 max-h-96 overflow-y-auto transition-all">
         <div class="flex justify-between items-center mb-4">
             <h4 class="text-base font-semibold text-white">Notifications</h4>
             <button id="clearNotifications" class="text-purple-400 text-sm font-medium hover:text-purple-300 transition-colors">Mark all as read</button>
@@ -127,18 +128,19 @@
         <div id="notifContent" class="space-y-4"></div>
     </div>
     <header class="sticky top-0 z-50 bg-black border-b border-gray-700 py-4 shadow-md">
-        <div class="max-w-2xl mx-auto lg:ml-64 lg:max-w-[calc(100%-16rem)] lg:mr-auto flex justify-between items-center px-4 lg:px-8">
+        <div class="max-w-2xl mx-auto lg:ml-[calc(50%-16rem)] lg:max-w-3xl lg:mr-auto flex items-center px-4 lg:px-0 relative">
             <button onclick="toggleSidebar()" class="pl-2 transition-all hover:scale-110 lg:hidden" aria-label="Open Sidebar">
                 <i class="fas fa-bars text-gray-100 text-xl"></i>
             </button>
-            <h1 class="text-lg font-bold text-gray-100">Dashboard</h1>
-            <button onclick="toggleNotifications()" class="pr-2 relative transition-all hover:scale-110" aria-label="Notifications">
+            <h1 class="text-lg font-bold text-gray-100 absolute left-1/2 -translate-x-1/2 lg:relative lg:left-auto lg:translate-x-0 lg:ml-0">Dashboard</h1>
+            <div class="flex-grow"></div>
+            <button onclick="toggleNotifications()" class="relative transition-all hover:scale-110 pr-0 lg:pr-2" aria-label="Notifications">
                 <i class="fas fa-bell text-gray-100 text-xl"></i>
                 <span id="notifBadge" class="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full px-1 hidden"></span>
             </button>
         </div>
     </header>
-    <main class="max-w-2xl mx-auto lg:ml-64 lg:max-w-[calc(100%-16rem)] lg:mr-auto px-6 py-8 lg:px-8">
+    <main class="max-w-2xl mx-auto lg:ml-[calc(50%-16rem)] lg:max-w-3xl lg:mr-auto px-6 py-8 lg:px-8">
         <div class="text-center mb-8">
             <img id="headerImage" src="" alt="Header" class="mx-auto rounded-xl mb-6 w-[80%] md:w-[40%] lg:w-[40%]">
             <h2 id="apiTitle" class="text-3xl font-bold mb-4 bg-gradient-to-r from-purple-400 to-purple-600 text-transparent bg-clip-text"></h2>
@@ -149,7 +151,7 @@
             </div>
         </div>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-            <div class="bg-black rounded-lg p-4 border border-gray-700 shadow-xl transition-all hover:shadow-2xl">
+            <div class="bg-black rounded-lg p-6 border border-gray-700 shadow-xl transition-all hover:shadow-2xl">
                 <div class="flex justify-between items-start mb-2">
                     <h3 class="text-base font-semibold bg-gradient-to-r from-purple-400 to-purple-600 text-transparent bg-clip-text">Total APIs</h3>
                     <i class="fa-regular fa-clipboard text-purple-400 text-xl"></i>
@@ -159,7 +161,7 @@
                     <span class="text-sm text-gray-500 ml-1">endpoints</span>
                 </div>
             </div>
-            <div class="bg-black rounded-lg p-4 border border-gray-700 shadow-xl transition-all hover:shadow-2xl">
+            <div class="bg-black rounded-lg p-6 border border-gray-700 shadow-xl transition-all hover:shadow-2xl">
                 <div class="flex justify-between items-start mb-2">
                     <h3 class="text-base font-semibold bg-gradient-to-r from-purple-400 to-purple-600 text-transparent bg-clip-text">Categories</h3>
                     <i class="fa-solid fa-layer-group text-green-400 text-xl"></i>
@@ -172,11 +174,11 @@
         </div>
     </main>
     <footer class="bg-black border-t border-gray-700 py-6 relative z-10 w-full">
-        <div class="max-w-4xl mx-auto lg:ml-64 lg:max-w-[calc(100%-16rem)] lg:mr-auto px-8 py-12">
+        <div class="max-w-2xl mx-auto lg:ml-[calc(50%-16rem)] lg:max-w-3xl lg:mr-auto px-8 py-12">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
                 <div>
                     <h3 class="font-semibold text-gray-300 mb-3">About</h3>
-                    <p class="text-sm text-gray-400 leading-relaxed">
+                    <p id="aboutText" class="text-sm text-gray-400 leading-relaxed">
                         This interactive interface allows you to explore and test our comprehensive collection of API endpoints in real-time.
                     </p>
                 </div>
@@ -186,7 +188,7 @@
                         <a id="telegramLink" target="_blank" class="w-9 h-9 flex items-center justify-center rounded-lg bg-gray-700 hover:bg-gray-600 text-gray-400 hover:text-gray-100 transition-all">
                             <i class="fab fa-telegram-plane text-lg"></i>
                         </a>
-                        <a href="https://m.me/yourusername" target="_blank" class="w-9 h-9 flex items-center justify-center rounded-lg bg-gray-700 hover:bg-gray-600 text-gray-400 hover:text-gray-100 transition-all">
+                        <a id="messengerLink" target="_blank" class="w-9 h-9 flex items-center justify-center rounded-lg bg-gray-700 hover:bg-gray-600 text-gray-400 hover:text-gray-100 transition-all">
                             <i class="fab fa-facebook-messenger text-lg"></i>
                         </a>
                     </div>
@@ -294,6 +296,11 @@
                 document.getElementById('apiStatus').textContent = setData.header.status;
                 document.getElementById('footerCopyright').textContent = `© ${new Date().getFullYear()} ${setData.name}. All rights reserved.`;
                 document.getElementById('telegramLink').href = setData.telegram;
+                document.getElementById('messengerLink').href = setData.messenger;
+                const aboutText = document.getElementById('aboutText');
+                if (aboutText) {
+                    aboutText.innerHTML += `<br>GitHub: <a href="${setData.github}" target="_blank" class="text-purple-400 hover:underline">${setData.operator}</a>`;
+                }
                 notifs = setData.notification || [];
                 updateNotifPanel();
                 const endpointsRes = await fetch('/endpoints');

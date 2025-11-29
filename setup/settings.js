@@ -1,5 +1,5 @@
 module.exports = {
-  name: "Shin APIs",
+  name: "Ajiro APIs",
   description:
     "Simple and easy to use",
   key: "ajiro2005",
@@ -15,7 +15,8 @@ module.exports = {
     },
   },
   icon: "/docs/image/icon.png",
-  operator: "ShinDesu",
+  operator: "AjiroDesu",
   telegram: "https://t.me/+AQO22J2q6KBlNWM1",
-  messenger: "https://m.me/j/Aba0mwuz9PTv7bP9/"
+  messenger: "https://m.me/j/Aba0mwuz9PTv7bP9/",
+  github: "https://github.com/ajirodesu"
 };

@@ -103,8 +103,9 @@
         }
         body {
             background-image: 
-                repeating-linear-gradient(0deg, transparent 0px, transparent 49px, rgba(255,255,255,0.05) 49px, rgba(255,255,255,0.05) 50px),
-                repeating-linear-gradient(90deg, transparent 0px, transparent 49px, rgba(255,255,255,0.05) 49px, rgba(255,255,255,0.05) 50px);
+                repeating-linear-gradient(0deg, transparent 0px, transparent 49px, rgba(255,255,255,0.1) 49px, rgba(255,255,255,0.1) 50px),
+                repeating-linear-gradient(90deg, transparent 0px, transparent 49px, rgba(255,255,255,0.1) 49px, rgba(255,255,255,0.1) 50px);
+            background-size: 100% 100%;
         }
     </style>
 </head>
@@ -115,15 +116,15 @@
         <span class="loading-text">Loading</span>
     </div>
     <header class="sticky top-0 z-50 bg-black border-b border-gray-700 py-4 shadow-md">
-        <div class="max-w-2xl lg:max-w-5xl mx-auto flex justify-center items-center px-4 lg:px-8">
+        <div class="max-w-2xl lg:max-w-3xl mx-auto flex justify-center items-center px-4 lg:px-8">
             <h1 id="headerTitle" class="text-lg font-bold text-gray-100"></h1>
         </div>
     </header>
-    <main class="max-w-2xl lg:max-w-5xl mx-auto px-6 py-8 lg:px-8">
+    <main class="max-w-2xl lg:max-w-3xl mx-auto px-6 py-8 lg:px-8">
         <section id="introduction" class="mb-12 text-center flex flex-col items-center">
             <img id="headerImage" src="" alt="Header" class="mx-auto rounded-xl mb-6 w-[80%] md:w-[40%] lg:w-[40%]">
             <h2 class="text-3xl font-bold mb-4 bg-gradient-to-r from-purple-400 to-purple-600 text-transparent bg-clip-text">Welcome to <span id="apiName"></span></h2>
-            <div class="bg-black border border-gray-700 rounded-lg p-4 shadow-md transition-all hover:shadow-xl w-full">
+            <div class="bg-black border border-gray-700 rounded-lg p-6 shadow-md transition-all hover:shadow-xl w-full">
                 <p id="apiDescription" class="text-base text-gray-400 mb-6"></p>
                 <p class="text-base text-gray-400 mb-4">
                     Our platform offers a simple and easy-to-use API documentation system, allowing you to explore and test endpoints in real-time.
@@ -139,7 +140,7 @@
         </section>
         <section id="getting-started" class="mb-12">
             <h2 class="text-3xl font-bold mb-6 bg-gradient-to-r from-purple-400 to-purple-600 text-transparent bg-clip-text">Getting Started</h2>
-            <div class="bg-black border border-gray-700 rounded-lg p-4 shadow-md transition-all hover:shadow-xl">
+            <div class="bg-black border border-gray-700 rounded-lg p-6 shadow-md transition-all hover:shadow-xl">
                 <ol class="space-y-6">
                     <li class="flex">
                         <div class="flex-shrink-0 w-8 h-8 bg-gradient-to-r from-purple-600 to-purple-400 text-white font-bold text-center leading-8 mr-4 rounded-lg transition-all hover:opacity-90">1</div>
@@ -167,7 +168,7 @@
         </section>
         <section id="terms-of-service" class="mb-12">
             <h2 class="text-3xl font-bold mb-6 bg-gradient-to-r from-purple-400 to-purple-600 text-transparent bg-clip-text">Terms of Service</h2>
-            <div class="bg-black border border-gray-700 rounded-lg p-4 shadow-md transition-all hover:shadow-xl">
+            <div class="bg-black border border-gray-700 rounded-lg p-6 shadow-md transition-all hover:shadow-xl">
                 <p class="text-base text-gray-400 mb-4">
                     By using <span id="apiNameTerms"></span>, you agree to the following terms:
                 </p>
@@ -188,11 +189,11 @@
         </div>
     </main>
     <footer class="bg-black border-t border-gray-700 py-6 relative z-10 w-full">
-        <div class="max-w-2xl lg:max-w-5xl mx-auto px-8 py-12">
+        <div class="max-w-2xl lg:max-w-3xl mx-auto px-8 py-12">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
                 <div>
                     <h3 class="font-semibold text-gray-300 mb-3">About</h3>
-                    <p class="text-sm text-gray-400 leading-relaxed">
+                    <p id="aboutText" class="text-sm text-gray-400 leading-relaxed">
                         This interactive interface allows you to explore and test our comprehensive collection of API endpoints in real-time.
                     </p>
                 </div>
@@ -202,7 +203,7 @@
                         <a id="telegramLink" target="_blank" class="w-9 h-9 flex items-center justify-center rounded-lg bg-gray-700 hover:bg-gray-600 text-gray-400 hover:text-gray-100 transition-all">
                             <i class="fab fa-telegram-plane text-lg"></i>
                         </a>
-                        <a href="https://m.me/yourusername" target="_blank" class="w-9 h-9 flex items-center justify-center rounded-lg bg-gray-700 hover:bg-gray-600 text-gray-400 hover:text-gray-100 transition-all">
+                        <a id="messengerLink" target="_blank" class="w-9 h-9 flex items-center justify-center rounded-lg bg-gray-700 hover:bg-gray-600 text-gray-400 hover:text-gray-100 transition-all">
                             <i class="fab fa-facebook-messenger text-lg"></i>
                         </a>
                     </div>
@@ -224,6 +225,11 @@
                 document.querySelector('link[rel="icon"]').href = setData.icon;
                 document.getElementById('footerCopyright').textContent = `© ${new Date().getFullYear()} ${setData.name}. All rights reserved.`;
                 document.getElementById('telegramLink').href = setData.telegram;
+                document.getElementById('messengerLink').href = setData.messenger;
+                const aboutText = document.getElementById('aboutText');
+                if (aboutText) {
+                    aboutText.innerHTML += `<br>GitHub: <a href="${setData.github}" target="_blank" class="text-purple-400 hover:underline">${setData.operator}</a>`;
+                }
                 document.title = setData.name;
                 document.querySelector('meta[property="og:title"]').content = setData.name;
                 document.getElementById('headerTitle').textContent = setData.name;
