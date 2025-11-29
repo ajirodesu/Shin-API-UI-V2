@@ -806,9 +806,7 @@
                 document.getElementById('messengerLink').href = setData.messenger;
                 document.getElementById('githubLink').href = setData.github;
                 const aboutText = document.getElementById('aboutText');
-                if (aboutText) {
-                    aboutText.innerHTML += `<br>GitHub: <a href="${setData.github}" target="_blank" class="text-premium-purple hover:underline">${setData.operator}</a>`;
-                }
+                
                 notifs = setData.notification || [];
                 updateNotifPanel();
                 const catPath = location.pathname.replace('/category/', '').toLowerCase();

@@ -247,9 +247,7 @@
                 document.getElementById('messengerLink').href = setData.messenger;
                 document.getElementById('githubLink').href = setData.github;
                 const aboutText = document.getElementById('aboutText');
-                if (aboutText) {
-                    aboutText.innerHTML += `<br>GitHub: <a href="${setData.github}" target="_blank" class="text-premium-purple hover:underline">${setData.operator}</a>`;
-                }
+                
                 document.title = setData.name;
                 document.querySelector('meta[property="og:title"]').content = setData.name;
                 document.getElementById('headerTitle').textContent = setData.name;
