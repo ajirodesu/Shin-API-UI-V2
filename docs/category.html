@@ -24,15 +24,18 @@
                     fontFamily: {
                         'mono': ['Ubuntu Mono', 'monospace'],
                         'sans': ['Inter', 'system-ui', 'sans-serif']
+                    },
+                    colors: {
+                        'premium-purple': '#7C3AED',
+                        'premium-violet': '#A78BFA',
+                        'neutral-dark': '#1F2937',
+                        'neutral-light': '#D1D5DB'
                     }
                 }
             }
         }
     </script>
     <style>
-        html {
-            scroll-behavior: smooth;
-        }
         @media (max-width: 767px) {
             ::-webkit-scrollbar {
                 display: none !important;
@@ -61,7 +64,7 @@
             width: 40px;
             height: 40px;
             border: 4px solid #4b5563;
-            border-top: 4px solid #4f46e5;
+            border-top: 4px solid #9333ea;
             border-radius: 50%;
             animation: spin 1s linear infinite;
         }
@@ -113,7 +116,7 @@
             position: absolute;
             bottom: 0;
             height: 2px;
-            background-color: #4f46e5;
+            background-color: #9333ea;
             transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
         }
         .custom-dropdown button svg {
@@ -130,23 +133,33 @@
         }
         body {
             background-image: 
-                repeating-linear-gradient(0deg, transparent 0px, transparent 49px, rgba(255,255,255,0.05) 49px, rgba(255,255,255,0.05) 50px),
-                repeating-linear-gradient(90deg, transparent 0px, transparent 49px, rgba(255,255,255,0.05) 49px, rgba(255,255,255,0.05) 50px);
+                repeating-linear-gradient(0deg, transparent 0px, transparent 49px, rgba(255,255,255,0.1) 49px, rgba(255,255,255,0.1) 50px),
+                repeating-linear-gradient(90deg, transparent 0px, transparent 49px, rgba(255,255,255,0.1) 49px, rgba(255,255,255,0.1) 50px);
             background-size: 100% 100%;
+            background-color: #000000;
+        }
+        .bg-gradient-premium {
+            background: linear-gradient(to right, #7C3AED, #A78BFA);
+        }
+        .hover\:shadow-premium:hover {
+            box-shadow: 0 4px 20px rgba(124, 58, 237, 0.3);
+        }
+        .text-premium {
+            color: #D1D5DB;
         }
     </style>
 </head>
-<body class="bg-black text-gray-200 antialiased font-mono min-h-screen">
+<body class="bg-black text-premium antialiased font-mono min-h-screen">
     <!-- Loader -->
     <div id="loader">
         <div class="spinner"></div>
         <span class="loading-text">Loading</span>
     </div>
     <!-- Sidebar -->
-    <div id="sidebar" class="fixed left-0 top-0 h-full w-64 bg-black z-[60] transform -translate-x-full lg:translate-x-0 transition-transform duration-300 ease-in-out overflow-y-auto shadow-2xl border-r border-gray-700">
-        <div class="py-4 px-4 flex justify-between items-center border-b border-gray-700">
-            <h3 class="text-lg font-semibold text-gray-100">API Categories</h3>
-            <button onclick="closeSidebar()" class="text-gray-400 hover:text-gray-100 lg:hidden" aria-label="Close Sidebar">
+    <div id="sidebar" class="fixed left-0 top-0 h-full w-64 bg-black z-[60] transform -translate-x-full lg:translate-x-0 transition-transform duration-300 ease-in-out overflow-y-auto shadow-2xl border-r border-neutral-dark">
+        <div class="py-4 px-4 flex justify-between items-center border-b border-neutral-dark">
+            <h3 class="text-lg font-semibold text-white">API Categories</h3>
+            <button onclick="closeSidebar()" class="text-gray-400 hover:text-white lg:hidden" aria-label="Close Sidebar">
                 <i class="fas fa-times text-xl"></i>
             </button>
         </div>
@@ -155,29 +168,29 @@
     <!-- Overlay -->
     <div id="overlay" class="fixed inset-0 bg-black/50 hidden lg:hidden z-[50]" onclick="closeSidebar()"></div>
     <!-- Notification Panel -->
-    <div id="notificationPanel" class="hidden fixed top-12 right-0 bg-black border border-gray-700 p-4 z-[60] shadow-2xl rounded-xl w-80 max-h-96 overflow-y-auto transition-all">
+    <div id="notificationPanel" class="hidden fixed top-12 right-0 bg-black border border-neutral-dark p-4 z-[60] shadow-2xl rounded-xl w-80 max-h-96 overflow-y-auto transition-all">
         <div class="flex justify-between items-center mb-4">
             <h4 class="text-base font-semibold text-white">Notifications</h4>
-            <button id="clearNotifications" class="text-indigo-400 text-sm font-medium hover:text-indigo-300 transition-colors">Mark all as read</button>
+            <button id="clearNotifications" class="text-premium-purple text-sm font-medium hover:text-premium-violet transition-colors">Mark all as read</button>
         </div>
         <div id="notifContent" class="space-y-4"></div>
     </div>
-    <header class="sticky top-0 z-50 bg-black border-b border-gray-700 py-6 shadow-md">
-        <div class="max-w-3xl mx-auto lg:ml-[calc(50%-16rem)] lg:max-w-4xl lg:mr-auto flex items-center px-4 lg:px-0 relative">
+    <header class="sticky top-0 z-50 bg-black border-b border-neutral-dark py-4 shadow-md">
+        <div class="max-w-2xl mx-auto lg:ml-[calc(50%-16rem)] lg:max-w-3xl lg:mr-auto flex items-center px-4 lg:px-0 relative">
             <button onclick="toggleSidebar()" class="pl-2 transition-all hover:scale-110 lg:hidden" aria-label="Open Sidebar">
-                <i class="fas fa-bars text-gray-100 text-xl"></i>
+                <i class="fas fa-bars text-white text-xl"></i>
             </button>
-            <h1 class="text-xl font-bold text-gray-100 absolute left-1/2 -translate-x-1/2 lg:relative lg:left-auto lg:translate-x-0 lg:ml-4">Dashboard</h1>
+            <h1 class="text-lg font-bold text-white absolute left-1/2 -translate-x-1/2 lg:relative lg:left-auto lg:translate-x-0 lg:ml-4">Dashboard</h1>
             <div class="flex-grow"></div>
             <button onclick="toggleNotifications()" class="relative transition-all hover:scale-110 pr-0 lg:pr-8" aria-label="Notifications">
-                <i class="fas fa-bell text-gray-100 text-xl"></i>
+                <i class="fas fa-bell text-white text-xl"></i>
                 <span id="notifBadge" class="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full px-1 hidden"></span>
             </button>
         </div>
     </header>
-    <main class="max-w-3xl mx-auto lg:ml-[calc(50%-16rem)] lg:max-w-4xl lg:mr-auto px-6 py-12 lg:px-8">
+    <main class="max-w-2xl mx-auto lg:ml-[calc(50%-16rem)] lg:max-w-3xl lg:mr-auto px-6 py-8 lg:px-8">
         <div class="text-left mb-8">
-            <h2 id="headerTitle" class="text-4xl font-bold mb-4 bg-gradient-to-r from-indigo-400 to-indigo-600 text-transparent bg-clip-text inline-flex items-center"><span class="material-icons align-middle mr-3">arrow_outward</span></h2>
+            <h2 id="headerTitle" class="text-3xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-premium inline-flex items-center"><span class="material-icons align-middle mr-3">arrow_outward</span></h2>
         </div>
         <div class="flex items-center justify-between mb-4">
             <div class="flex-1 relative">
@@ -188,7 +201,7 @@
                     type="text"
                     id="searchInput"
                     placeholder="Search endpoints..."
-                    class="w-full pl-12 pr-4 py-4 text-sm border border-gray-700 bg-black text-gray-100 placeholder-gray-500 focus:outline-none focus:border-indigo-500 rounded-lg shadow-sm transition-all focus:shadow-md"
+                    class="w-full pl-12 pr-4 py-4 text-sm border border-neutral-dark bg-black text-white placeholder-gray-500 focus:outline-none focus:border-premium-purple rounded-lg shadow-sm transition-all focus:shadow-premium"
                     aria-label="Search Endpoints"
                 >
             </div>
@@ -202,32 +215,32 @@
             <div id="apiList" class="space-y-6"></div>
         </div>
     </main>
-    <footer class="bg-black border-t border-gray-700 py-6 relative z-10 w-full">
-        <div class="max-w-3xl mx-auto lg:ml-[calc(50%-16rem)] lg:max-w-4xl lg:mr-auto px-8 py-12">
+    <footer class="bg-black border-t border-neutral-dark py-6 relative z-10 w-full">
+        <div class="max-w-2xl mx-auto lg:ml-[calc(50%-16rem)] lg:max-w-3xl lg:mr-auto px-8 py-12">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
                 <div>
-                    <h3 class="font-semibold text-gray-300 mb-3 text-lg">About</h3>
-                    <p class="text-base text-gray-400 leading-relaxed">
+                    <h3 class="font-semibold text-white mb-3">About</h3>
+                    <p id="aboutText" class="text-sm text-neutral-light leading-relaxed">
                         This interactive interface allows you to explore and test our comprehensive collection of API endpoints in real-time.
                     </p>
                 </div>
                 <div>
-                    <h3 class="font-semibold text-gray-300 mb-3 text-lg">Connect</h3>
+                    <h3 class="font-semibold text-white mb-3">Connect</h3>
                     <div class="flex gap-3">
-                        <a id="telegramLink" target="_blank" class="w-10 h-10 flex items-center justify-center rounded-xl bg-gray-800 hover:bg-gray-700 text-gray-300 hover:text-white transition-all shadow-md hover:shadow-lg">
-                            <i class="fab fa-telegram-plane text-xl"></i>
+                        <a id="telegramLink" target="_blank" class="w-9 h-9 flex items-center justify-center rounded-lg bg-neutral-dark hover:bg-gray-600 text-neutral-light hover:text-white transition-all">
+                            <i class="fab fa-telegram-plane text-lg"></i>
                         </a>
-                        <a id="messengerLink" target="_blank" class="w-10 h-10 flex items-center justify-center rounded-xl bg-gray-800 hover:bg-gray-700 text-gray-300 hover:text-white transition-all shadow-md hover:shadow-lg">
-                            <i class="fab fa-facebook-messenger text-xl"></i>
+                        <a id="messengerLink" target="_blank" class="w-9 h-9 flex items-center justify-center rounded-lg bg-neutral-dark hover:bg-gray-600 text-neutral-light hover:text-white transition-all">
+                            <i class="fab fa-facebook-messenger text-lg"></i>
                         </a>
-                        <a id="githubLink" target="_blank" class="w-10 h-10 flex items-center justify-center rounded-xl bg-gray-800 hover:bg-gray-700 text-gray-300 hover:text-white transition-all shadow-md hover:shadow-lg">
-                            <i class="fab fa-github text-xl"></i>
+                        <a id="githubLink" target="_blank" class="w-9 h-9 flex items-center justify-center rounded-lg bg-neutral-dark hover:bg-gray-600 text-neutral-light hover:text-white transition-all">
+                            <i class="fab fa-github text-lg"></i>
                         </a>
                     </div>
                 </div>
             </div>
-            <div class="pt-8 border-t border-gray-700">
-                <p class="text-base text-gray-500" id="footerCopyright"></p>
+            <div class="pt-8 border-t border-neutral-dark">
+                <p class="text-sm text-gray-500" id="footerCopyright"></p>
             </div>
         </div>
     </footer>
@@ -285,9 +298,9 @@
             let notifHtml = '';
             if (unread.length > 0) {
                 notifHtml = unread.map(n => `
-                    <div onclick="markAsRead(${n.id})" class="notification-item py-3 cursor-pointer border-b border-gray-700 last:border-0">
+                    <div onclick="markAsRead(${n.id})" class="notification-item py-3 cursor-pointer border-b border-neutral-dark last:border-0">
                         <h5 class="text-sm font-semibold text-white mb-1">${n.title}</h5>
-                        <p class="text-xs text-gray-300 mb-1">${n.message}</p>
+                        <p class="text-xs text-neutral-light mb-1">${n.message}</p>
                         <span class="text-xs text-gray-500">${relativeTime(n.createdAt)}</span>
                     </div>
                 `).join('');
@@ -448,7 +461,7 @@
                 const tab = document.getElementById(`tab-${m.toLowerCase()}-${endpointIndex}`);
                 if (tab) {
                     if (m === method) {
-                        tab.classList.add('text-gray-100');
+                        tab.classList.add('text-white');
                         tab.classList.remove('text-gray-500');
                         const indicator = document.getElementById(`tab-indicator-${endpointIndex}`);
                         if (indicator) {
@@ -456,7 +469,7 @@
                             indicator.style.width = tab.offsetWidth + 'px';
                         }
                     } else {
-                        tab.classList.remove('text-gray-100');
+                        tab.classList.remove('text-white');
                         tab.classList.add('text-gray-500');
                     }
                 }
@@ -792,6 +805,10 @@
                 document.getElementById('telegramLink').href = setData.telegram;
                 document.getElementById('messengerLink').href = setData.messenger;
                 document.getElementById('githubLink').href = setData.github;
+                const aboutText = document.getElementById('aboutText');
+                if (aboutText) {
+                    aboutText.innerHTML += `<br>GitHub: <a href="${setData.github}" target="_blank" class="text-premium-purple hover:underline">${setData.operator}</a>`;
+                }
                 notifs = setData.notification || [];
                 updateNotifPanel();
                 const catPath = location.pathname.replace('/category/', '').toLowerCase();
@@ -819,14 +836,14 @@
                     const methodStr = methods.join('/');
                     let tabsHtml = '';
                     if (methods.length > 1) {
-                        tabsHtml = `<div class="tab-container border-b border-gray-700 mb-4"><div class="flex relative">`;
+                        tabsHtml = `<div class="tab-container border-b border-neutral-dark mb-4"><div class="flex relative">`;
                         methods.forEach((m, idx) => {
                             tabsHtml += `
                                 <button
                                     type="button"
                                     onclick="switchMethod(${index}, '${m}')"
                                     id="tab-${m.toLowerCase()}-${index}"
-                                    class="px-4 py-2 text-xs font-semibold ${idx === 0 ? 'text-gray-100' : 'text-gray-500 hover:text-gray-100'} transition-colors"
+                                    class="px-4 py-2 text-xs font-semibold ${idx === 0 ? 'text-white' : 'text-gray-500 hover:text-white'} transition-colors"
                                 >
                                     ${m}
                                 </button>
@@ -853,30 +870,30 @@
                                 let selectedLabel = optionsArr.find(opt => opt.value === selectedValue)?.label || defaultLabel;
                                 const dropdownId = `dropdown-${index}-${pIndex}`;
                                 const optionsHtml = optionsArr.map(opt => `
-                                    <button type="button" onclick="selectOption('${dropdownId}', '${opt.value}', '${opt.label}')" class="w-full px-3 py-2 text-sm text-gray-100 hover:bg-gray-700 transition-all text-left ${opt.value === '' ? 'text-gray-500' : ''}">
+                                    <button type="button" onclick="selectOption('${dropdownId}', '${opt.value}', '${opt.label}')" class="w-full px-3 py-2 text-sm text-white hover:bg-neutral-dark transition-all text-left ${opt.value === '' ? 'text-gray-500' : ''}">
                                         ${opt.label}
                                     </button>
                                 `).join('');
                                 inputHtml = `
                                     <div class="relative custom-dropdown" id="${dropdownId}">
                                         <input type="hidden" name="${paramName}" value="${selectedValue}">
-                                        <button id="button-${dropdownId}" type="button" onclick="toggleDropdown('${dropdownId}')" class="w-full px-3 py-2 border border-gray-700 bg-black text-sm text-gray-100 rounded-lg transition-all focus:shadow-sm focus:outline-none focus:border-indigo-500 flex justify-between items-center">
+                                        <button id="button-${dropdownId}" type="button" onclick="toggleDropdown('${dropdownId}')" class="w-full px-3 py-2 border border-neutral-dark bg-black text-sm text-white rounded-lg transition-all focus:shadow-premium focus:outline-none focus:border-premium-purple flex justify-between items-center">
                                             <span id="selected-${dropdownId}">${selectedLabel}</span>
                                             <svg class="w-3 h-3 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
                                             </svg>
                                         </button>
-                                        <div id="options-${dropdownId}" class="dropdown-options hidden absolute w-full bg-black border border-gray-700 rounded-lg mt-1 z-10 max-h-40 overflow-y-auto shadow-lg">
+                                        <div id="options-${dropdownId}" class="dropdown-options hidden absolute w-full bg-black border border-neutral-dark rounded-lg mt-1 z-10 max-h-40 overflow-y-auto shadow-lg">
                                             ${optionsHtml}
                                         </div>
                                     </div>
                                 `;
                             } else {
-                                inputHtml = `<input type="text" name="${paramName}" class="w-full px-3 py-2 border border-gray-700 bg-black text-sm focus:outline-none focus:border-indigo-500 text-gray-100 placeholder:text-gray-500 rounded-lg transition-all focus:shadow-sm" placeholder="${p.example || ''}" ${p.required ? 'required' : ''}>`;
+                                inputHtml = `<input type="text" name="${paramName}" class="w-full px-3 py-2 border border-neutral-dark bg-black text-sm focus:outline-none focus:border-premium-purple text-white placeholder:text-gray-500 rounded-lg transition-all focus:shadow-premium" placeholder="${p.example || ''}" ${p.required ? 'required' : ''}>`;
                             }
                             return `
                                 <div>
-                                    <label class="block text-xs font-medium text-gray-300">
+                                    <label class="block text-xs font-medium text-neutral-light">
                                         ${p.name} ${p.required ? '<span class="text-red-400">*</span>' : ''}
                                     </label>
                                     <div class="text-xs text-gray-500 mb-1">
@@ -891,7 +908,7 @@
                     let getStyle = methods.length > 1 ? '' : (methods[0] === 'GET' ? 'display: block;' : 'display: none;');
                     let postStyle = methods.length > 1 ? 'display: none;' : (methods[0] === 'POST' ? 'display: block;' : 'display: none;');
                     const div = document.createElement('div');
-                    div.classList.add('bg-black', 'border', 'border-gray-700', 'api-item', 'hover:border-indigo-500', 'rounded-2xl', 'overflow-hidden', 'shadow-xl', 'transition-all', 'hover:shadow-2xl');
+                    div.classList.add('bg-black', 'border', 'border-neutral-dark', 'api-item', 'hover:border-premium-purple', 'rounded-xl', 'overflow-hidden', 'shadow-md', 'transition-all', 'hover:shadow-premium');
                     div.dataset.method = methodStr;
                     div.dataset.path = basePath;
                     div.dataset.alias = alias;
@@ -899,30 +916,30 @@
                         <button onclick="toggleEndpoint(${index})" class="w-full text-left">
                             <div class="px-5 py-3.5 flex items-center justify-between gap-3 bg-black">
                                 <div class="flex items-center min-w-0 flex-1 gap-3">
-                                    <span class="inline-block px-2.5 py-1 text-xs font-semibold text-white flex-shrink-0 rounded bg-gradient-to-r from-indigo-600 to-indigo-400 transition-all hover:opacity-90">
+                                    <span class="inline-block px-2.5 py-1 text-xs font-semibold text-white flex-shrink-0 rounded bg-gradient-premium transition-all hover:opacity-90">
                                         ${methodStr}
                                     </span>
-                                    <span class="font-semibold truncate text-[0.9rem] text-gray-100" title="${alias}">${alias}</span>
+                                    <span class="font-semibold truncate text-[0.9rem] text-white" title="${alias}">${alias}</span>
                                 </div>
                                 <div class="flex items-center gap-2 flex-shrink-0">
                                     <span class="material-icons transition-transform duration-200 text-gray-400" id="endpoint-icon-${index}">expand_more</span>
                                 </div>
                             </div>
-                            <div class="px-5 border-t border-gray-700"></div>
+                            <div class="px-5 border-t border-neutral-dark"></div>
                             <div class="px-5 pb-3 bg-black">
                                 <span class="text-xs text-gray-500 block pt-2.5 font-mono" title="${basePath}">${basePath}</span>
                             </div>
                         </button>
-                        <div id="endpoint-${index}" class="hidden bg-black px-5 pt-3 pb-8 border-t border-gray-700 rounded-b-2xl">
+                        <div id="endpoint-${index}" class="hidden bg-black px-5 pt-3 pb-8 border-t border-neutral-dark rounded-b-xl">
                             <div>
-                                <div class="text-gray-300 font-bold text-xs mb-2 flex items-center">
+                                <div class="text-neutral-light font-bold text-xs mb-2 flex items-center">
                                     <span class="material-icons text-sm mr-1">info</span>
                                     DESCRIPTION
                                 </div>
                                 <p class="text-xs text-gray-400 mb-4">${item.desc || item.description || ''}</p>
                             </div>
                             <div>
-                                <div class="text-gray-300 font-bold text-xs mb-2 flex items-center">
+                                <div class="text-neutral-light font-bold text-xs mb-2 flex items-center">
                                     <span class="material-icons text-sm mr-1">play_arrow</span>
                                     TRY IT OUT
                                 </div>
@@ -936,23 +953,23 @@
                                             <textarea
                                                 name="body"
                                                 rows="8"
-                                                class="w-full px-3 py-2 border border-gray-700 bg-black text-sm focus:outline-none focus:border-indigo-500 text-gray-100 placeholder:text-gray-500 font-mono rounded-lg transition-all focus:shadow-sm resize-none"
+                                                class="w-full px-3 py-2 border border-neutral-dark bg-black text-sm focus:outline-none focus:border-premium-purple text-white placeholder:text-gray-500 font-mono rounded-lg transition-all focus:shadow-premium resize-none"
                                                 placeholder="Enter JSON body here...">${bodyExample}</textarea>
                                             <div class="text-xs text-gray-500 mt-2">
                                                 Modify the JSON structure above as needed for your request.
                                             </div>
                                         </div>
-                                        <button type="submit" class="bg-gradient-to-r from-indigo-600 to-indigo-400 hover:opacity-90 font-semibold text-gray-100 px-6 py-2 text-xs font-medium transition-colors duration-150 disabled:bg-gray-600 disabled:cursor-not-allowed rounded-lg">
+                                        <button type="submit" class="bg-gradient-premium hover:opacity-90 font-semibold text-white px-6 py-2 text-xs font-medium transition-colors duration-150 disabled:bg-gray-600 disabled:cursor-not-allowed rounded-lg">
                                             Execute
                                         </button>
-                                        <button type="button" id="clear-${index}" onclick="clearResponse(${index})" class="hidden bg-black border border-gray-700 hover:border-indigo-500 font-semibold text-gray-100 px-6 py-2 text-xs font-medium transition-colors duration-150 ml-2 rounded-lg">
+                                        <button type="button" id="clear-${index}" onclick="clearResponse(${index})" class="hidden bg-black border border-neutral-dark hover:border-premium-purple font-semibold text-white px-6 py-2 text-xs font-medium transition-colors duration-150 ml-2 rounded-lg">
                                             Clear
                                         </button>
                                     </form>
                                 </div>
                             </div>
                             <div id="response-${index}" class="hidden mt-6">
-                                <div class="text-gray-300 font-bold text-xs mb-3 flex items-center justify-between">
+                                <div class="text-neutral-light font-bold text-xs mb-3 flex items-center justify-between">
                                     <div class="flex items-center">
                                         <span class="material-icons text-sm mr-1">code</span>
                                         RESPONSE
@@ -961,12 +978,12 @@
                                         <span class="material-icons text-sm">content_copy</span>
                                     </button>
                                 </div>
-                                <div class="bg-black border border-gray-700 text-white text-xs p-4 rounded-lg">
+                                <div class="bg-black border border-neutral-dark text-white text-xs p-4 rounded-lg">
                                     <div class="bg-black max-h-80 overflow-auto" id="response-content-${index}"></div>
                                 </div>
                             </div>
                             <div id="curl-${index}" class="mt-6">
-                                <div class="text-gray-300 font-bold text-xs mb-3 flex items-center justify-between">
+                                <div class="text-neutral-light font-bold text-xs mb-3 flex items-center justify-between">
                                     <div class="flex items-center">
                                         <span class="material-icons text-sm mr-1">terminal</span>
                                         CURL COMMAND
@@ -975,26 +992,26 @@
                                         <span class="material-icons text-sm">content_copy</span>
                                     </button>
                                 </div>
-                                <div class="bg-black border border-gray-700 text-white text-xs p-4 rounded-lg">
+                                <div class="bg-black border border-neutral-dark text-white text-xs p-4 rounded-lg">
                                     <pre class="text-white whitespace-pre-wrap overflow-auto max-h-40" id="curl-content-${index}"></pre>
                                 </div>
                             </div>
                             <div class="mt-6 space-y-6">
                                 <div>
-                                    <div class="text-gray-300 font-bold text-xs mb-2 flex items-center">
+                                    <div class="text-neutral-light font-bold text-xs mb-2 flex items-center">
                                         <span class="material-icons text-sm mr-1">list</span>
                                         HTTP STATUS CODES
                                     </div>
-                                    <div class="bg-black border border-gray-700 rounded-lg overflow-hidden">
+                                    <div class="bg-black border border-neutral-dark rounded-lg overflow-hidden">
                                         <div class="overflow-x-auto">
                                             <table class="w-full text-xs">
-                                                <thead class="bg-gray-800 border-b border-gray-700">
+                                                <thead class="bg-gray-800 border-b border-neutral-dark">
                                                     <tr>
-                                                        <th class="px-4 py-2 text-left font-semibold text-gray-300">Code</th>
-                                                        <th class="px-4 py-2 text-left font-semibold text-gray-300">Description</th>
+                                                        <th class="px-4 py-2 text-left font-semibold text-neutral-light">Code</th>
+                                                        <th class="px-4 py-2 text-left font-semibold text-neutral-light">Description</th>
                                                     </tr>
                                                 </thead>
-                                                <tbody class="divide-y divide-gray-700">
+                                                <tbody class="divide-y divide-neutral-dark">
                                                     <tr class="hover:bg-gray-800 transition-all">
                                                         <td class="px-4 py-2">
                                                             <div class="flex items-center">
@@ -1062,13 +1079,13 @@
                     index++;
                 }
                 let sidebarHtml = `
-                    <a href="/docs" class="flex items-center px-3 py-1 text-gray-100 hover:bg-gray-700 rounded-xl transition-all hover:shadow-sm ${location.pathname === '/docs' ? 'bg-gray-700' : ''}">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5 mr-3 text-indigo-400">
+                    <a href="/docs" class="flex items-center px-3 py-1 text-white hover:bg-neutral-dark rounded-xl transition-all hover:shadow-sm ${location.pathname === '/docs' ? 'bg-neutral-dark' : ''}">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5 mr-3 text-premium-purple">
                             <path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z"/>
                         </svg>
                         Dashboard
                     </a>
-                    <div class="border-t border-gray-700 my-3 -mx-4"></div>
+                    <div class="border-t border-neutral-dark my-3 -mx-4"></div>
                     <p class="text-gray-400 text-sm mb-2 font-medium">Available Categories</p>
                 `;
                 for (const cat of endpoints) {
@@ -1076,9 +1093,9 @@
                     const slug = cat.name.toLowerCase().replace(/\s+/g, '-');
                     const active = location.pathname === `/category/${slug}`;
                     sidebarHtml += `
-                        <a href="/category/${slug}" class="flex items-center justify-between px-3 py-1 text-gray-100 hover:bg-gray-700 rounded-xl transition-all hover:shadow-sm ${active ? 'bg-gray-700' : ''}">
+                        <a href="/category/${slug}" class="flex items-center justify-between px-3 py-1 text-white hover:bg-neutral-dark rounded-xl transition-all hover:shadow-sm ${active ? 'bg-neutral-dark' : ''}">
                             <div class="flex items-center">
-                                <i class="fas fa-folder mr-3 text-indigo-400"></i>
+                                <i class="fas fa-folder mr-3 text-premium-purple"></i>
                                 ${capitalizedName} (${cat.items.length})
                             </div>
                             <i class="material-icons text-lg text-gray-400">keyboard_arrow_right</i>

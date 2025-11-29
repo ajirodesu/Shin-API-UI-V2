@@ -24,6 +24,12 @@
                     fontFamily: {
                         'mono': ['Ubuntu Mono', 'monospace'],
                         'sans': ['Inter', 'system-ui', 'sans-serif']
+                    },
+                    colors: {
+                        'premium-purple': '#7C3AED',
+                        'premium-violet': '#A78BFA',
+                        'neutral-dark': '#1F2937',
+                        'neutral-light': '#D1D5DB'
                     }
                 }
             }
@@ -106,110 +112,123 @@
                 repeating-linear-gradient(0deg, transparent 0px, transparent 49px, rgba(255,255,255,0.1) 49px, rgba(255,255,255,0.1) 50px),
                 repeating-linear-gradient(90deg, transparent 0px, transparent 49px, rgba(255,255,255,0.1) 49px, rgba(255,255,255,0.1) 50px);
             background-size: 100% 100%;
+            background-color: #000000;
+        }
+        .bg-gradient-premium {
+            background: linear-gradient(to right, #7C3AED, #A78BFA);
+        }
+        .hover\:shadow-premium:hover {
+            box-shadow: 0 4px 20px rgba(124, 58, 237, 0.3);
+        }
+        .text-premium {
+            color: #D1D5DB;
         }
     </style>
 </head>
-<body class="bg-black text-gray-200 antialiased font-mono min-h-screen">
+<body class="bg-black text-premium antialiased font-mono min-h-screen">
     <!-- Loader -->
     <div id="loader">
         <div class="spinner"></div>
         <span class="loading-text">Loading</span>
     </div>
-    <header class="sticky top-0 z-50 bg-black border-b border-gray-700 py-4 shadow-md">
+    <header class="sticky top-0 z-50 bg-black border-b border-neutral-dark py-4 shadow-md">
         <div class="max-w-2xl lg:max-w-3xl mx-auto flex justify-center items-center px-4 lg:px-8">
-            <h1 id="headerTitle" class="text-lg font-bold text-gray-100"></h1>
+            <h1 id="headerTitle" class="text-lg font-bold text-white"></h1>
         </div>
     </header>
     <main class="max-w-2xl lg:max-w-3xl mx-auto px-6 py-8 lg:px-8">
         <section id="introduction" class="mb-12 text-center flex flex-col items-center">
             <img id="headerImage" src="" alt="Header" class="mx-auto rounded-xl mb-6 w-[80%] md:w-[40%] lg:w-[40%]">
-            <h2 class="text-3xl font-bold mb-4 bg-gradient-to-r from-purple-400 to-purple-600 text-transparent bg-clip-text">Welcome to <span id="apiName"></span></h2>
-            <div class="bg-black border border-gray-700 rounded-lg p-6 shadow-md transition-all hover:shadow-xl w-full">
-                <p id="apiDescription" class="text-base text-gray-400 mb-6"></p>
-                <p class="text-base text-gray-400 mb-4">
+            <h2 class="text-3xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-premium">Welcome to <span id="apiName"></span></h2>
+            <div class="bg-black border border-neutral-dark rounded-lg p-6 shadow-md transition-all hover:shadow-premium w-full">
+                <p id="apiDescription" class="text-base text-neutral-light mb-6"></p>
+                <p class="text-base text-neutral-light mb-4">
                     Our platform offers a simple and easy-to-use API documentation system, allowing you to explore and test endpoints in real-time.
                 </p>
-                <p class="text-base text-gray-400">
+                <p class="text-base text-neutral-light">
                     With <span id="totalEndpoints"></span> endpoints across <span id="totalCategories"></span> categories, backed by a reliable and always-online service.
                 </p>
             </div>
             <div class="flex space-x-4 mt-6">
-                <a href="/docs" class="bg-gradient-to-r from-purple-600 to-purple-400 text-white px-6 py-2 rounded-lg font-semibold text-sm transition-all hover:opacity-90 hover:shadow-lg">Enter Dashboard</a>
-                <a href="#getting-started" class="bg-black border border-gray-700 text-gray-100 px-6 py-2 rounded-lg font-semibold text-sm transition-all hover:border-purple-500 hover:shadow-lg">Learn More</a>
+                <a href="/docs" class="bg-gradient-premium text-white px-6 py-2 rounded-lg font-semibold text-sm transition-all hover:opacity-90 hover:shadow-premium">Enter Dashboard</a>
+                <a href="#getting-started" class="bg-black border border-neutral-dark text-white px-6 py-2 rounded-lg font-semibold text-sm transition-all hover:border-premium-purple hover:shadow-premium">Learn More</a>
             </div>
         </section>
         <section id="getting-started" class="mb-12">
-            <h2 class="text-3xl font-bold mb-6 bg-gradient-to-r from-purple-400 to-purple-600 text-transparent bg-clip-text">Getting Started</h2>
-            <div class="bg-black border border-gray-700 rounded-lg p-6 shadow-md transition-all hover:shadow-xl">
+            <h2 class="text-3xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-premium">Getting Started</h2>
+            <div class="bg-black border border-neutral-dark rounded-lg p-6 shadow-md transition-all hover:shadow-premium">
                 <ol class="space-y-6">
                     <li class="flex">
-                        <div class="flex-shrink-0 w-8 h-8 bg-gradient-to-r from-purple-600 to-purple-400 text-white font-bold text-center leading-8 mr-4 rounded-lg transition-all hover:opacity-90">1</div>
+                        <div class="flex-shrink-0 w-8 h-8 bg-gradient-premium text-white font-bold text-center leading-8 mr-4 rounded-lg transition-all hover:opacity-90">1</div>
                         <div>
-                            <h3 class="font-bold text-gray-100">Choose Your Category</h3>
-                            <p class="text-gray-400 text-base">Browse through available API categories on the sidebar and select what you need.</p>
+                            <h3 class="font-bold text-white">Choose Your Category</h3>
+                            <p class="text-neutral-light text-base">Browse through available API categories on the sidebar and select what you need.</p>
                         </div>
                     </li>
                     <li class="flex">
-                        <div class="flex-shrink-0 w-8 h-8 bg-gradient-to-r from-purple-600 to-purple-400 text-white font-bold text-center leading-8 mr-4 rounded-lg transition-all hover:opacity-90">2</div>
+                        <div class="flex-shrink-0 w-8 h-8 bg-gradient-premium text-white font-bold text-center leading-8 mr-4 rounded-lg transition-all hover:opacity-90">2</div>
                         <div>
-                            <h3 class="font-bold text-gray-100">Read the Docs</h3>
-                            <p class="text-gray-400 text-base">Check endpoint parameters, response format, and example usage.</p>
+                            <h3 class="font-bold text-white">Read the Docs</h3>
+                            <p class="text-neutral-light text-base">Check endpoint parameters, response format, and example usage.</p>
                         </div>
                     </li>
                     <li class="flex">
-                        <div class="flex-shrink-0 w-8 h-8 bg-gradient-to-r from-purple-600 to-purple-400 text-white font-bold text-center leading-8 mr-4 rounded-lg transition-all hover:opacity-90">3</div>
+                        <div class="flex-shrink-0 w-8 h-8 bg-gradient-premium text-white font-bold text-center leading-8 mr-4 rounded-lg transition-all hover:opacity-90">3</div>
                         <div>
-                            <h3 class="font-bold text-gray-100">Make Your Request</h3>
-                            <p class="text-gray-400 text-base">Send HTTP requests and integrate the JSON response into your app.</p>
+                            <h3 class="font-bold text-white">Make Your Request</h3>
+                            <p class="text-neutral-light text-base">Send HTTP requests and integrate the JSON response into your app.</p>
                         </div>
                     </li>
                 </ol>
             </div>
         </section>
         <section id="terms-of-service" class="mb-12">
-            <h2 class="text-3xl font-bold mb-6 bg-gradient-to-r from-purple-400 to-purple-600 text-transparent bg-clip-text">Terms of Service</h2>
-            <div class="bg-black border border-gray-700 rounded-lg p-6 shadow-md transition-all hover:shadow-xl">
-                <p class="text-base text-gray-400 mb-4">
+            <h2 class="text-3xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-premium">Terms of Service</h2>
+            <div class="bg-black border border-neutral-dark rounded-lg p-6 shadow-md transition-all hover:shadow-premium">
+                <p class="text-base text-neutral-light mb-4">
                     By using <span id="apiNameTerms"></span>, you agree to the following terms:
                 </p>
-                <ul class="list-disc list-inside space-y-2 text-base text-gray-400">
+                <ul class="list-disc list-inside space-y-2 text-base text-neutral-light">
                     <li>Use the APIs responsibly and in accordance with all applicable laws.</li>
                     <li>Do not abuse the service by exceeding reasonable rate limits.</li>
                     <li>We reserve the right to modify or discontinue the service at any time.</li>
                     <li>All content and data provided through the APIs are for informational purposes only.</li>
                     <li>We are not liable for any damages arising from the use of our APIs.</li>
                 </ul>
-                <p class="text-base text-gray-400 mt-4">
+                <p class="text-base text-neutral-light mt-4">
                     For full terms, please contact us via our Telegram channel.
                 </p>
             </div>
         </section>
         <div class="text-center mt-8 mb-12">
-            <button onclick="window.scrollTo({top: 0, behavior: 'smooth'})" class="bg-gradient-to-r from-purple-600 to-purple-400 text-white px-6 py-2 rounded-lg font-semibold text-sm transition-all hover:opacity-90 hover:shadow-lg">Back to Top</button>
+            <button onclick="window.scrollTo({top: 0, behavior: 'smooth'})" class="bg-gradient-premium text-white px-6 py-2 rounded-lg font-semibold text-sm transition-all hover:opacity-90 hover:shadow-premium">Back to Top</button>
         </div>
     </main>
-    <footer class="bg-black border-t border-gray-700 py-6 relative z-10 w-full">
+    <footer class="bg-black border-t border-neutral-dark py-6 relative z-10 w-full">
         <div class="max-w-2xl lg:max-w-3xl mx-auto px-8 py-12">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
                 <div>
-                    <h3 class="font-semibold text-gray-300 mb-3">About</h3>
-                    <p id="aboutText" class="text-sm text-gray-400 leading-relaxed">
+                    <h3 class="font-semibold text-white mb-3">About</h3>
+                    <p id="aboutText" class="text-sm text-neutral-light leading-relaxed">
                         This interactive interface allows you to explore and test our comprehensive collection of API endpoints in real-time.
                     </p>
                 </div>
                 <div>
-                    <h3 class="font-semibold text-gray-300 mb-3">Connect</h3>
+                    <h3 class="font-semibold text-white mb-3">Connect</h3>
                     <div class="flex gap-3">
-                        <a id="telegramLink" target="_blank" class="w-9 h-9 flex items-center justify-center rounded-lg bg-gray-700 hover:bg-gray-600 text-gray-400 hover:text-gray-100 transition-all">
+                        <a id="telegramLink" target="_blank" class="w-9 h-9 flex items-center justify-center rounded-lg bg-neutral-dark hover:bg-gray-600 text-neutral-light hover:text-white transition-all">
                             <i class="fab fa-telegram-plane text-lg"></i>
                         </a>
-                        <a id="messengerLink" target="_blank" class="w-9 h-9 flex items-center justify-center rounded-lg bg-gray-700 hover:bg-gray-600 text-gray-400 hover:text-gray-100 transition-all">
+                        <a id="messengerLink" target="_blank" class="w-9 h-9 flex items-center justify-center rounded-lg bg-neutral-dark hover:bg-gray-600 text-neutral-light hover:text-white transition-all">
                             <i class="fab fa-facebook-messenger text-lg"></i>
+                        </a>
+                        <a id="githubLink" target="_blank" class="w-9 h-9 flex items-center justify-center rounded-lg bg-neutral-dark hover:bg-gray-600 text-neutral-light hover:text-white transition-all">
+                            <i class="fab fa-github text-lg"></i>
                         </a>
                     </div>
                 </div>
             </div>
-            <div class="pt-8 border-t border-gray-700">
+            <div class="pt-8 border-t border-neutral-dark">
                 <p class="text-sm text-gray-500" id="footerCopyright"></p>
             </div>
         </div>
@@ -226,9 +245,10 @@
                 document.getElementById('footerCopyright').textContent = `© ${new Date().getFullYear()} ${setData.name}. All rights reserved.`;
                 document.getElementById('telegramLink').href = setData.telegram;
                 document.getElementById('messengerLink').href = setData.messenger;
+                document.getElementById('githubLink').href = setData.github;
                 const aboutText = document.getElementById('aboutText');
                 if (aboutText) {
-                    aboutText.innerHTML += `<br>GitHub: <a href="${setData.github}" target="_blank" class="text-purple-400 hover:underline">${setData.operator}</a>`;
+                    aboutText.innerHTML += `<br>GitHub: <a href="${setData.github}" target="_blank" class="text-premium-purple hover:underline">${setData.operator}</a>`;
                 }
                 document.title = setData.name;
                 document.querySelector('meta[property="og:title"]').content = setData.name;

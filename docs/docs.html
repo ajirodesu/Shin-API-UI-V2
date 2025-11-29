@@ -24,6 +24,12 @@
                     fontFamily: {
                         'mono': ['Ubuntu Mono', 'monospace'],
                         'sans': ['Inter', 'system-ui', 'sans-serif']
+                    },
+                    colors: {
+                        'premium-purple': '#7C3AED',
+                        'premium-violet': '#A78BFA',
+                        'neutral-dark': '#1F2937',
+                        'neutral-light': '#D1D5DB'
                     }
                 }
             }
@@ -98,20 +104,30 @@
                 repeating-linear-gradient(0deg, transparent 0px, transparent 49px, rgba(255,255,255,0.1) 49px, rgba(255,255,255,0.1) 50px),
                 repeating-linear-gradient(90deg, transparent 0px, transparent 49px, rgba(255,255,255,0.1) 49px, rgba(255,255,255,0.1) 50px);
             background-size: 100% 100%;
+            background-color: #000000;
+        }
+        .bg-gradient-premium {
+            background: linear-gradient(to right, #7C3AED, #A78BFA);
+        }
+        .hover\:shadow-premium:hover {
+            box-shadow: 0 4px 20px rgba(124, 58, 237, 0.3);
+        }
+        .text-premium {
+            color: #D1D5DB;
         }
     </style>
 </head>
-<body class="bg-black text-gray-200 antialiased font-mono min-h-screen">
+<body class="bg-black text-premium antialiased font-mono min-h-screen">
     <!-- Loader -->
     <div id="loader">
         <div class="spinner"></div>
         <span class="loading-text">Loading</span>
     </div>
     <!-- Sidebar -->
-    <div id="sidebar" class="fixed left-0 top-0 h-full w-64 bg-black z-[60] transform -translate-x-full lg:translate-x-0 transition-transform duration-300 ease-in-out overflow-y-auto shadow-2xl border-r border-gray-700">
-        <div class="py-4 px-4 flex justify-between items-center border-b border-gray-700">
-            <h3 class="text-lg font-semibold text-gray-100">API Categories</h3>
-            <button onclick="closeSidebar()" class="text-gray-400 hover:text-gray-100 lg:hidden" aria-label="Close Sidebar">
+    <div id="sidebar" class="fixed left-0 top-0 h-full w-64 bg-black z-[60] transform -translate-x-full lg:translate-x-0 transition-transform duration-300 ease-in-out overflow-y-auto shadow-2xl border-r border-neutral-dark">
+        <div class="py-4 px-4 flex justify-between items-center border-b border-neutral-dark">
+            <h3 class="text-lg font-semibold text-white">API Categories</h3>
+            <button onclick="closeSidebar()" class="text-gray-400 hover:text-white lg:hidden" aria-label="Close Sidebar">
                 <i class="fas fa-times text-xl"></i>
             </button>
         </div>
@@ -120,22 +136,22 @@
     <!-- Overlay -->
     <div id="overlay" class="fixed inset-0 bg-black/50 hidden lg:hidden z-[50]" onclick="closeSidebar()"></div>
     <!-- Notification Panel -->
-    <div id="notificationPanel" class="hidden fixed top-12 right-0 bg-black border border-gray-700 p-4 z-[60] shadow-2xl rounded-xl w-80 max-h-96 overflow-y-auto transition-all">
+    <div id="notificationPanel" class="hidden fixed top-12 right-0 bg-black border border-neutral-dark p-4 z-[60] shadow-2xl rounded-xl w-80 max-h-96 overflow-y-auto transition-all">
         <div class="flex justify-between items-center mb-4">
             <h4 class="text-base font-semibold text-white">Notifications</h4>
-            <button id="clearNotifications" class="text-purple-400 text-sm font-medium hover:text-purple-300 transition-colors">Mark all as read</button>
+            <button id="clearNotifications" class="text-premium-purple text-sm font-medium hover:text-premium-violet transition-colors">Mark all as read</button>
         </div>
         <div id="notifContent" class="space-y-4"></div>
     </div>
-    <header class="sticky top-0 z-50 bg-black border-b border-gray-700 py-4 shadow-md">
+    <header class="sticky top-0 z-50 bg-black border-b border-neutral-dark py-4 shadow-md">
         <div class="max-w-2xl mx-auto lg:ml-[calc(50%-16rem)] lg:max-w-3xl lg:mr-auto flex items-center px-4 lg:px-0 relative">
             <button onclick="toggleSidebar()" class="pl-2 transition-all hover:scale-110 lg:hidden" aria-label="Open Sidebar">
-                <i class="fas fa-bars text-gray-100 text-xl"></i>
+                <i class="fas fa-bars text-white text-xl"></i>
             </button>
-            <h1 class="text-lg font-bold text-gray-100 absolute left-1/2 -translate-x-1/2 lg:relative lg:left-auto lg:translate-x-0 lg:ml-0">Dashboard</h1>
+            <h1 class="text-lg font-bold text-white absolute left-1/2 -translate-x-1/2 lg:relative lg:left-auto lg:translate-x-0 lg:ml-0">Dashboard</h1>
             <div class="flex-grow"></div>
             <button onclick="toggleNotifications()" class="relative transition-all hover:scale-110 pr-0 lg:pr-2" aria-label="Notifications">
-                <i class="fas fa-bell text-gray-100 text-xl"></i>
+                <i class="fas fa-bell text-white text-xl"></i>
                 <span id="notifBadge" class="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full px-1 hidden"></span>
             </button>
         </div>
@@ -143,58 +159,61 @@
     <main class="max-w-2xl mx-auto lg:ml-[calc(50%-16rem)] lg:max-w-3xl lg:mr-auto px-6 py-8 lg:px-8">
         <div class="text-center mb-8">
             <img id="headerImage" src="" alt="Header" class="mx-auto rounded-xl mb-6 w-[80%] md:w-[40%] lg:w-[40%]">
-            <h2 id="apiTitle" class="text-3xl font-bold mb-4 bg-gradient-to-r from-purple-400 to-purple-600 text-transparent bg-clip-text"></h2>
-            <p id="apiDescription" class="text-base text-gray-400 mb-6"></p>
+            <h2 id="apiTitle" class="text-3xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-premium"></h2>
+            <p id="apiDescription" class="text-base text-neutral-light mb-6"></p>
             <div class="inline-flex items-center bg-green-900/50 text-green-400 px-4 py-2 rounded-full text-sm font-medium mx-auto">
                 <span class="w-2 h-2 bg-green-500 rounded-full mr-2 animate-pulse"></span>
                 <span id="apiStatus"></span>
             </div>
         </div>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-            <div class="bg-black rounded-lg p-6 border border-gray-700 shadow-xl transition-all hover:shadow-2xl">
+            <div class="bg-black rounded-lg p-6 border border-neutral-dark shadow-xl transition-all hover:shadow-premium">
                 <div class="flex justify-between items-start mb-2">
-                    <h3 class="text-base font-semibold bg-gradient-to-r from-purple-400 to-purple-600 text-transparent bg-clip-text">Total APIs</h3>
-                    <i class="fa-regular fa-clipboard text-purple-400 text-xl"></i>
+                    <h3 class="text-base font-semibold bg-clip-text text-transparent bg-gradient-premium">Total APIs</h3>
+                    <i class="fa-regular fa-clipboard text-premium-purple text-xl"></i>
                 </div>
                 <div class="flex items-baseline">
-                    <span id="totalEndpoints" class="text-2xl font-bold text-gray-200"></span>
+                    <span id="totalEndpoints" class="text-2xl font-bold text-white"></span>
                     <span class="text-sm text-gray-500 ml-1">endpoints</span>
                 </div>
             </div>
-            <div class="bg-black rounded-lg p-6 border border-gray-700 shadow-xl transition-all hover:shadow-2xl">
+            <div class="bg-black rounded-lg p-6 border border-neutral-dark shadow-xl transition-all hover:shadow-premium">
                 <div class="flex justify-between items-start mb-2">
-                    <h3 class="text-base font-semibold bg-gradient-to-r from-purple-400 to-purple-600 text-transparent bg-clip-text">Categories</h3>
+                    <h3 class="text-base font-semibold bg-clip-text text-transparent bg-gradient-premium">Categories</h3>
                     <i class="fa-solid fa-layer-group text-green-400 text-xl"></i>
                 </div>
                 <div class="flex items-baseline">
-                    <span id="totalCategories" class="text-2xl font-bold text-gray-200"></span>
+                    <span id="totalCategories" class="text-2xl font-bold text-white"></span>
                     <span class="text-sm text-gray-500 ml-1">groups</span>
                 </div>
             </div>
         </div>
     </main>
-    <footer class="bg-black border-t border-gray-700 py-6 relative z-10 w-full">
+    <footer class="bg-black border-t border-neutral-dark py-6 relative z-10 w-full">
         <div class="max-w-2xl mx-auto lg:ml-[calc(50%-16rem)] lg:max-w-3xl lg:mr-auto px-8 py-12">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
                 <div>
-                    <h3 class="font-semibold text-gray-300 mb-3">About</h3>
-                    <p id="aboutText" class="text-sm text-gray-400 leading-relaxed">
+                    <h3 class="font-semibold text-white mb-3">About</h3>
+                    <p id="aboutText" class="text-sm text-neutral-light leading-relaxed">
                         This interactive interface allows you to explore and test our comprehensive collection of API endpoints in real-time.
                     </p>
                 </div>
                 <div>
-                    <h3 class="font-semibold text-gray-300 mb-3">Connect</h3>
+                    <h3 class="font-semibold text-white mb-3">Connect</h3>
                     <div class="flex gap-3">
-                        <a id="telegramLink" target="_blank" class="w-9 h-9 flex items-center justify-center rounded-lg bg-gray-700 hover:bg-gray-600 text-gray-400 hover:text-gray-100 transition-all">
+                        <a id="telegramLink" target="_blank" class="w-9 h-9 flex items-center justify-center rounded-lg bg-neutral-dark hover:bg-gray-600 text-neutral-light hover:text-white transition-all">
                             <i class="fab fa-telegram-plane text-lg"></i>
                         </a>
-                        <a id="messengerLink" target="_blank" class="w-9 h-9 flex items-center justify-center rounded-lg bg-gray-700 hover:bg-gray-600 text-gray-400 hover:text-gray-100 transition-all">
+                        <a id="messengerLink" target="_blank" class="w-9 h-9 flex items-center justify-center rounded-lg bg-neutral-dark hover:bg-gray-600 text-neutral-light hover:text-white transition-all">
                             <i class="fab fa-facebook-messenger text-lg"></i>
+                        </a>
+                        <a id="githubLink" target="_blank" class="w-9 h-9 flex items-center justify-center rounded-lg bg-neutral-dark hover:bg-gray-600 text-neutral-light hover:text-white transition-all">
+                            <i class="fab fa-github text-lg"></i>
                         </a>
                     </div>
                 </div>
             </div>
-            <div class="pt-8 border-t border-gray-700">
+            <div class="pt-8 border-t border-neutral-dark">
                 <p class="text-sm text-gray-500" id="footerCopyright"></p>
             </div>
         </div>
@@ -252,9 +271,9 @@
             let notifHtml = '';
             if (unread.length > 0) {
                 notifHtml = unread.map(n => `
-                    <div onclick="markAsRead(${n.id})" class="notification-item py-3 cursor-pointer border-b border-gray-700 last:border-0">
+                    <div onclick="markAsRead(${n.id})" class="notification-item py-3 cursor-pointer border-b border-neutral-dark last:border-0">
                         <h5 class="text-sm font-semibold text-white mb-1">${n.title}</h5>
-                        <p class="text-xs text-gray-300 mb-1">${n.message}</p>
+                        <p class="text-xs text-neutral-light mb-1">${n.message}</p>
                         <span class="text-xs text-gray-500">${relativeTime(n.createdAt)}</span>
                     </div>
                 `).join('');
@@ -297,9 +316,10 @@
                 document.getElementById('footerCopyright').textContent = `© ${new Date().getFullYear()} ${setData.name}. All rights reserved.`;
                 document.getElementById('telegramLink').href = setData.telegram;
                 document.getElementById('messengerLink').href = setData.messenger;
+                document.getElementById('githubLink').href = setData.github;
                 const aboutText = document.getElementById('aboutText');
                 if (aboutText) {
-                    aboutText.innerHTML += `<br>GitHub: <a href="${setData.github}" target="_blank" class="text-purple-400 hover:underline">${setData.operator}</a>`;
+                    aboutText.innerHTML += `<br>GitHub: <a href="${setData.github}" target="_blank" class="text-premium-purple hover:underline">${setData.operator}</a>`;
                 }
                 notifs = setData.notification || [];
                 updateNotifPanel();
@@ -309,13 +329,13 @@
                 document.getElementById('totalEndpoints').textContent = endpointsData.count;
                 document.getElementById('totalCategories').textContent = endpoints.length;
                 let sidebarHtml = `
-                    <a href="/docs" class="flex items-center px-3 py-1 text-gray-100 hover:bg-gray-700 rounded-xl transition-all hover:shadow-sm ${location.pathname === '/docs' ? 'bg-gray-700' : ''}">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5 mr-3 text-purple-400">
+                    <a href="/docs" class="flex items-center px-3 py-1 text-white hover:bg-neutral-dark rounded-xl transition-all hover:shadow-sm ${location.pathname === '/docs' ? 'bg-neutral-dark' : ''}">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5 mr-3 text-premium-purple">
                             <path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z"/>
                         </svg>
                         Dashboard
                     </a>
-                    <div class="border-t border-gray-700 my-3 -mx-4"></div>
+                    <div class="border-t border-neutral-dark my-3 -mx-4"></div>
                     <p class="text-gray-400 text-sm mb-2 font-medium">Available Categories</p>
                 `;
                 for (const cat of endpoints) {
@@ -323,9 +343,9 @@
                     const slug = cat.name.toLowerCase().replace(/\s+/g, '-');
                     const active = location.pathname === `/category/${slug}`;
                     sidebarHtml += `
-                        <a href="/category/${slug}" class="flex items-center justify-between px-3 py-1 text-gray-100 hover:bg-gray-700 rounded-xl transition-all hover:shadow-sm ${active ? 'bg-gray-700' : ''}">
+                        <a href="/category/${slug}" class="flex items-center justify-between px-3 py-1 text-white hover:bg-neutral-dark rounded-xl transition-all hover:shadow-sm ${active ? 'bg-neutral-dark' : ''}">
                             <div class="flex items-center">
-                                <i class="fas fa-folder mr-3 text-purple-400"></i>
+                                <i class="fas fa-folder mr-3 text-premium-purple"></i>
                                 ${capitalizedName} (${cat.items.length})
                             </div>
                             <i class="material-icons text-lg text-gray-400">keyboard_arrow_right</i>
